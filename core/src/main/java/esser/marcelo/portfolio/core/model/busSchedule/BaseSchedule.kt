@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.model.schedules
+package esser.marcelo.portfolio.core.model.busSchedule
 
 import com.google.gson.annotations.SerializedName
 

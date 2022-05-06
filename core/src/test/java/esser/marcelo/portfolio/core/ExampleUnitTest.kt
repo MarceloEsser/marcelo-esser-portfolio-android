@@ -1,4 +1,4 @@
-package esser.marcelo.core
+package esser.marcelo.portfolio.core
 
 import org.junit.Test
 

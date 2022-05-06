@@ -10,9 +10,18 @@ import com.google.gson.annotations.SerializedName
  * @location Rio Grande do Sul, Brazil
  * @since 06/08/22
  */
+class Itinerary(
 
-class LinesDTO(
-    @SerializedName("itinerarios")
+    val itineraryId: Long,
+
+    @SerializedName("cidade")
     @Expose
-    var itineraries: List<ItinerariesDTO>? = null
-) : BaseLine()
+    var city: String? = null,
+
+    @SerializedName("logradouro")
+    @Expose
+    var street: String? = null,
+
+    var itineraryKey: Long? = null,
+
+)

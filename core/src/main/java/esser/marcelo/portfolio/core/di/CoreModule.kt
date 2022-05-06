@@ -1,8 +1,12 @@
 package esser.marcelo.portfolio.core.di
 
-import esser.marcelo.portfolio.core.sogalServices.ISogalAPI
+import androidx.room.Room
+import esser.marcelo.portfolio.core.service.ISogalAPI
 import esser.marcelo.portfolio.core.NetworkHandler
 import esser.marcelo.portfolio.core.callAdapter.CallAdapterFactory
+import esser.marcelo.portfolio.core.database.AppDatabase
+import esser.marcelo.portfolio.core.service.SogalService
+import esser.marcelo.portfolio.core.service.SogalServiceDelegate
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import org.koin.dsl.module
@@ -17,8 +21,11 @@ import org.koin.dsl.module
 
 val coreModule = module {
     single { retrofit() }
+    single { Room.databaseBuilder(get(), AppDatabase::class.java, "esser_portfolio").build() }
+    single { get<AppDatabase>().getAppDao() }
 
     single { get<Retrofit>().create(ISogalAPI::class.java) }
+    single<SogalServiceDelegate> { SogalService(get(), get()) }
 }
 
 private fun retrofit() = Retrofit.Builder()

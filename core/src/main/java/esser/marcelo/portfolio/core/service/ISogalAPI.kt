@@ -1,12 +1,15 @@
-package esser.marcelo.portfolio.core.sogalServices
+package esser.marcelo.portfolio.core.service
 
-import esser.marcelo.portfolio.core.model.LinesDTO
-import esser.marcelo.portfolio.core.model.SogalResponse
+import esser.marcelo.portfolio.core.model.busLine.BusLine
+import esser.marcelo.portfolio.core.model.busSchedule.SchedulesResponse
 import esser.marcelo.portfolio.core.wrapper.ApiResult
+import esser.marcelo.portfolio.core.wrapper.resource.Resource
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.flow.FlowCollector
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
+import java.util.concurrent.Flow
 
 /**
  * @author Marcelo Esser
@@ -19,21 +22,21 @@ import retrofit2.http.POST
 interface ISogalAPI {
     @POST("http://sogal.com.br/wp-content/themes/MobidickTheme/linhas/searchLine.php")
     @FormUrlEncoded
-    fun getSogalSchedulesAsync(
+    suspend fun getSogalSchedulesAsync(
         @Field("action") lineWay: String,
         @Field("linha") lineCode: String
-    ): Deferred<ApiResult<SogalResponse>>
+    ): ApiResult<SchedulesResponse>
 
     @POST("http://sogal.com.br/wp-content/themes/MobidickTheme/linhas/searchLine.php")
     @FormUrlEncoded
     fun getSogalListAsync(
         @Field("action") action: String
-    ): Deferred<ApiResult<List<LinesDTO>>>
+    ): Deferred<ApiResult<List<BusLine>>>
 
     @POST("http://sogal.com.br/wp-content/themes/MobidickTheme/linhas/searchLine.php")
     @FormUrlEncoded
     fun getSogalItinerariesAsync(
         @Field("action") action: String,
         @Field("linha") linha: String
-    ): Deferred<ApiResult<LinesDTO>>
+    ): Deferred<ApiResult<BusLine>>
 }

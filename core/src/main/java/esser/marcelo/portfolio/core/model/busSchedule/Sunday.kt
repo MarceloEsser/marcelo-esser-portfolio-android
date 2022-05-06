@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.model.schedules
+package esser.marcelo.portfolio.core.model.busSchedule
 
 /**
  * @author Marcelo Esser
@@ -11,5 +11,4 @@ package esser.marcelo.portfolio.core.model.schedules
 data class Sunday(
     var sundayId: Long? = null,
     var sundayKey: Long? = null,
-
-    ) : BaseSchedule()
+) : BaseSchedule()

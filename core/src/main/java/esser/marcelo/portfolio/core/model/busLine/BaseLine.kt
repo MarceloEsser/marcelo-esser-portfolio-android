@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.model
+package esser.marcelo.portfolio.core.model.busLine
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

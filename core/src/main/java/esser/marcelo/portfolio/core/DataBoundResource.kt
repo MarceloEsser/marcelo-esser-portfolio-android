@@ -17,11 +17,11 @@ import kotlinx.coroutines.flow.flow
  * @since 06/05/22
  */
 
-open class NetworkBoundResource<ResultType>(
-    private val shouldFetchFromNetwork: (() -> Boolean),
+open class DataBoundResource<ResultType>(
+    private val shouldFetchFromNetwork: () -> Boolean,
     private val fetchFromNetwork: suspend () -> ApiResult<ResultType>,
-    private val saveCallResult: (suspend (item: ResultType) -> Unit)? = null,
-    private val fetchFromDataBase: (suspend () -> ResultType?)? = null,
+    private val saveCallResult: (suspend (item: ResultType) -> Unit),
+    private val fetchFromDataBase: (suspend () -> ResultType?),
 ) {
 
     fun build(): Flow<Resource<ResultType>> {
@@ -36,15 +36,18 @@ open class NetworkBoundResource<ResultType>(
     }
 
     private suspend fun FlowCollector<Resource<ResultType>>.fetchFromDatabase() {
-        val value = fetchFromDataBase?.invoke()
-        value?.let {
-            emit(Resource.success(value))
+        val value = fetchFromDataBase.invoke()
+        value?.let { databaseValue ->
+            emit(Resource.success(databaseValue))
         }
     }
 
     private suspend fun FlowCollector<Resource<ResultType>>.fetchFromNetwork() {
         return when (val result = fetchFromNetwork.invoke()) {
             is ApiSuccessResult -> {
+                result.body?.let {
+                    saveCallResult.invoke(it)
+                }
                 emit(Resource.success(result.body))
             }
             is ApiEmptyResult -> {

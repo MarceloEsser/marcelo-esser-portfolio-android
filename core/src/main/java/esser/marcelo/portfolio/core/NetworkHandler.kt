@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 object NetworkHandler {
 
-    private val logginInterceptor: HttpLoggingInterceptor by lazy {
+    private val loggingInterceptor: HttpLoggingInterceptor by lazy {
         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
@@ -29,7 +29,7 @@ object NetworkHandler {
 
     fun httpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(logginInterceptor)
+            .addInterceptor(loggingInterceptor)
             .connectTimeout(60, TimeUnit.SECONDS)
             .build()
 
