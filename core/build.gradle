@@ -22,10 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -53,4 +55,9 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-core-ext:$koin_version"
+    implementation "io.insert-koin:koin-android-scope:2.2.3"
+    implementation "io.insert-koin:koin-android-viewmodel:2.2.3"
 }

@@ -1,4 +1,4 @@
-package esser.marcelo.core.wrapper
+package esser.marcelo.portfolio.core.wrapper
 
 import org.json.JSONObject
 import retrofit2.Response
@@ -8,7 +8,7 @@ import retrofit2.Response
  * @author marcelo.v.esser@gmail.com
  *
  * @location Rio Grande do Sul, Brazil
- * @since 08/05/22
+ * @since 06/05/22
  */
 
 sealed class ApiResult<T> {
@@ -38,7 +38,7 @@ sealed class ApiResult<T> {
         }
 
         private fun getErrorMessageFrom(errorBody: JSONObject): String {
-            var errorMessage: String = "unknown error"
+            var errorMessage = "unknown error"
             if (errorBody.has("error")) {
                 errorMessage = errorBody["error"] as String
             }

@@ -29,7 +29,7 @@ buildscript {
         room_version = '2.3.0-alpha02'
 
         //dependencies injection
-        koin_version = '2.1.6'
+        koin_version = '3.0.1'
 
         //Test
         junit = '4.13'
@@ -41,7 +41,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.2"
+        classpath "com.android.tools.build:gradle:7.0.4"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20"
 
         // NOTE: Do not place your application dependencies here; they belong

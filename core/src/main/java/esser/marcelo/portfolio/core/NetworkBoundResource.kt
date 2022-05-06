@@ -1,10 +1,10 @@
-package esser.marcelo.core.wrapper.resource
+package esser.marcelo.portfolio.core
 
-import esser.marcelo.core.wrapper.ApiEmptyResult
-import esser.marcelo.core.wrapper.ApiFailureResult
-import esser.marcelo.core.wrapper.ApiResult
-import esser.marcelo.core.wrapper.ApiSuccessResult
-import kotlinx.coroutines.Deferred
+import esser.marcelo.portfolio.core.wrapper.ApiEmptyResult
+import esser.marcelo.portfolio.core.wrapper.ApiFailureResult
+import esser.marcelo.portfolio.core.wrapper.ApiResult
+import esser.marcelo.portfolio.core.wrapper.ApiSuccessResult
+import esser.marcelo.portfolio.core.wrapper.resource.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
@@ -14,13 +14,14 @@ import kotlinx.coroutines.flow.flow
  * @author marcelo.v.esser@gmail.com
  *
  * @location Rio Grande do Sul, Brazil
- * @since 08/05/22
+ * @since 06/05/22
  */
 
 open class NetworkBoundResource<ResultType>(
-    private val fetchFromDataBase: (suspend () -> ResultType?)? = null,
+    private val shouldFetchFromNetwork: (() -> Boolean),
+    private val fetchFromNetwork: suspend () -> ApiResult<ResultType>,
     private val saveCallResult: (suspend (item: ResultType) -> Unit)? = null,
-    private val fetchFromNetwork: suspend () -> ApiResult<ResultType>
+    private val fetchFromDataBase: (suspend () -> ResultType?)? = null,
 ) {
 
     fun build(): Flow<Resource<ResultType>> {
@@ -28,13 +29,17 @@ open class NetworkBoundResource<ResultType>(
             emit(Resource.loading())
 
             fetchFromDatabase()
-            fetchFromNetwork()
+            //TODO: Review this rule
+            if (shouldFetchFromNetwork.invoke())
+                fetchFromNetwork()
         }
     }
 
     private suspend fun FlowCollector<Resource<ResultType>>.fetchFromDatabase() {
         val value = fetchFromDataBase?.invoke()
-        emit(Resource.success(value))
+        value?.let {
+            emit(Resource.success(value))
+        }
     }
 
     private suspend fun FlowCollector<Resource<ResultType>>.fetchFromNetwork() {

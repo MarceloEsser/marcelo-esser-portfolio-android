@@ -1,4 +1,4 @@
-package esser.marcelo.core
+package esser.marcelo.portfolio.core
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
  * @author marcelo.v.esser@gmail.com
  *
  * @location Rio Grande do Sul, Brazil
- * @since 08/05/22
+ * @since 06/05/22
  */
 
 

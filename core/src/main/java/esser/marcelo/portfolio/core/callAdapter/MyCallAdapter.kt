@@ -1,6 +1,6 @@
-package esser.marcelo.core.callAdapter
+package esser.marcelo.portfolio.core.callAdapter
 
-import esser.marcelo.core.wrapper.ApiResult
+import esser.marcelo.portfolio.core.wrapper.ApiResult
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
@@ -14,7 +14,7 @@ import java.lang.reflect.Type
  * @author marcelo.v.esser@gmail.com
  *
  * @location Rio Grande do Sul, Brazil
- * @since 08/05/22
+ * @since 06/05/22
  */
 
 class MyCallAdapter<T>(
