@@ -29,20 +29,18 @@ sealed class ApiResult<T> {
 
             }
 
-            val errorBody: JSONObject? = createJsonObject(response)
+            val errorBody: JSONObject = createJsonObject(response)
 
-            val errorMessage: String? = getErrorMessageFrom(errorBody)
+            val errorMessage: String = getErrorMessageFrom(errorBody)
 
             return ApiFailureResult(errorMessage)
 
         }
 
-        private fun getErrorMessageFrom(errorBody: JSONObject?): String? {
-            var errorMessage: String? = "unknown error"
-            if (errorBody != null) {
-                if (errorBody.has("error")) {
-                    errorMessage = errorBody["error"] as? String
-                }
+        private fun getErrorMessageFrom(errorBody: JSONObject): String {
+            var errorMessage: String = "unknown error"
+            if (errorBody.has("error")) {
+                errorMessage = errorBody["error"] as String
             }
             return errorMessage
         }

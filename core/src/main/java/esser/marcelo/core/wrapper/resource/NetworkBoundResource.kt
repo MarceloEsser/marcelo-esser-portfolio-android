@@ -5,7 +5,9 @@ import esser.marcelo.core.wrapper.ApiFailureResult
 import esser.marcelo.core.wrapper.ApiResult
 import esser.marcelo.core.wrapper.ApiSuccessResult
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.flow
 
 /**
  * @author Marcelo Esser
@@ -15,29 +17,36 @@ import kotlinx.coroutines.flow.FlowCollector
  * @since 08/05/22
  */
 
-open class NetworkBoundResource<ResultType, RequestType>(
-    private val collector: FlowCollector<Resource<ResultType>>,
-    private val call: Deferred<ApiResult<RequestType>>,
-    private val processResponse: (response: RequestType?) -> ResultType,
+open class NetworkBoundResource<ResultType>(
+    private val fetchFromDataBase: (suspend () -> ResultType?)? = null,
+    private val saveCallResult: (suspend (item: ResultType) -> Unit)? = null,
+    private val fetchFromNetwork: suspend () -> ApiResult<ResultType>
 ) {
 
-    suspend fun build(): NetworkBoundResource<ResultType, RequestType> {
-        collector.emit(Resource.loading())
-        fetchFromNetwork()
-        return this
+    fun build(): Flow<Resource<ResultType>> {
+        return flow {
+            emit(Resource.loading())
+
+            fetchFromDatabase()
+            fetchFromNetwork()
+        }
     }
 
-    private suspend fun fetchFromNetwork() {
-        return when (val result = call.await()) {
+    private suspend fun FlowCollector<Resource<ResultType>>.fetchFromDatabase() {
+        val value = fetchFromDataBase?.invoke()
+        emit(Resource.success(value))
+    }
+
+    private suspend fun FlowCollector<Resource<ResultType>>.fetchFromNetwork() {
+        return when (val result = fetchFromNetwork.invoke()) {
             is ApiSuccessResult -> {
-                val process = processResponse(result.body)
-                collector.emit(Resource.success(process))
+                emit(Resource.success(result.body))
             }
             is ApiEmptyResult -> {
-                collector.emit(Resource.success(null))
+                emit(Resource.success(null))
             }
             is ApiFailureResult -> {
-                collector.emit(Resource.error(result.message))
+                emit(Resource.error(result.message))
             }
         }
     }
