@@ -1,9 +1,9 @@
-package esser.marcelo.portfolio.core.service
+package esser.marcelo.portfolio.core.repository.service
 
-import esser.marcelo.portfolio.core.DataBoundResource
-import esser.marcelo.portfolio.core.database.AppDao
+import esser.marcelo.portfolio.core.repository.DataBoundResource
+import esser.marcelo.portfolio.core.repository.database.AppDao
 import esser.marcelo.portfolio.core.model.busSchedule.SchedulesResponse
-import esser.marcelo.portfolio.core.wrapper.resource.Resource
+import esser.marcelo.portfolio.core.repository.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

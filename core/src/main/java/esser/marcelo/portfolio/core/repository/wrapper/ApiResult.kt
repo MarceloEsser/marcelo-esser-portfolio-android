@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.wrapper
+package esser.marcelo.portfolio.core.repository.wrapper
 
 import org.json.JSONObject
 import retrofit2.Response

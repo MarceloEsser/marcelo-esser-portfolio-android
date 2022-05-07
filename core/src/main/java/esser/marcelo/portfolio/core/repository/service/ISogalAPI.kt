@@ -1,15 +1,12 @@
-package esser.marcelo.portfolio.core.service
+package esser.marcelo.portfolio.core.repository.service
 
 import esser.marcelo.portfolio.core.model.busLine.BusLine
 import esser.marcelo.portfolio.core.model.busSchedule.SchedulesResponse
-import esser.marcelo.portfolio.core.wrapper.ApiResult
-import esser.marcelo.portfolio.core.wrapper.resource.Resource
+import esser.marcelo.portfolio.core.repository.wrapper.ApiResult
 import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.flow.FlowCollector
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import java.util.concurrent.Flow
 
 /**
  * @author Marcelo Esser

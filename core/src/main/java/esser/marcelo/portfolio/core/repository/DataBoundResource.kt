@@ -1,10 +1,10 @@
-package esser.marcelo.portfolio.core
+package esser.marcelo.portfolio.core.repository
 
-import esser.marcelo.portfolio.core.wrapper.ApiEmptyResult
-import esser.marcelo.portfolio.core.wrapper.ApiFailureResult
-import esser.marcelo.portfolio.core.wrapper.ApiResult
-import esser.marcelo.portfolio.core.wrapper.ApiSuccessResult
-import esser.marcelo.portfolio.core.wrapper.resource.Resource
+import esser.marcelo.portfolio.core.repository.wrapper.ApiEmptyResult
+import esser.marcelo.portfolio.core.repository.wrapper.ApiFailureResult
+import esser.marcelo.portfolio.core.repository.wrapper.ApiResult
+import esser.marcelo.portfolio.core.repository.wrapper.ApiSuccessResult
+import esser.marcelo.portfolio.core.repository.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow

@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core
+package esser.marcelo.portfolio.core.repository
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

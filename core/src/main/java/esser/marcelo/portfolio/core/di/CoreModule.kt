@@ -1,12 +1,12 @@
 package esser.marcelo.portfolio.core.di
 
 import androidx.room.Room
-import esser.marcelo.portfolio.core.service.ISogalAPI
-import esser.marcelo.portfolio.core.NetworkHandler
+import esser.marcelo.portfolio.core.repository.service.ISogalAPI
+import esser.marcelo.portfolio.core.repository.NetworkHandler
 import esser.marcelo.portfolio.core.callAdapter.CallAdapterFactory
-import esser.marcelo.portfolio.core.database.AppDatabase
-import esser.marcelo.portfolio.core.service.SogalService
-import esser.marcelo.portfolio.core.service.SogalServiceDelegate
+import esser.marcelo.portfolio.core.repository.database.AppDatabase
+import esser.marcelo.portfolio.core.repository.service.SogalService
+import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import org.koin.dsl.module

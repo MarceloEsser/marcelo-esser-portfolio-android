@@ -1,6 +1,6 @@
 package esser.marcelo.portfolio.core.callAdapter
 
-import esser.marcelo.portfolio.core.wrapper.ApiResult
+import esser.marcelo.portfolio.core.repository.wrapper.ApiResult
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import retrofit2.Call

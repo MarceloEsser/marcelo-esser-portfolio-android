@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.database
+package esser.marcelo.portfolio.core.repository.database
 
 import androidx.room.Dao
 import androidx.room.Insert

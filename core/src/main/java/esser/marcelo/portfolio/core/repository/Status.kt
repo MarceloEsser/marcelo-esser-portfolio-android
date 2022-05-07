@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.wrapper.resource
+package esser.marcelo.portfolio.core.repository
 
 /**
  * @author Marcelo Esser

@@ -1,4 +1,6 @@
-package esser.marcelo.portfolio.core.wrapper.resource
+package esser.marcelo.portfolio.core.repository.wrapper
+
+import esser.marcelo.portfolio.core.repository.Status
 
 /**
  * @author Marcelo Esser
