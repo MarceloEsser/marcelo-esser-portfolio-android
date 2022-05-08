@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedules_navigation"
+    app:startDestination="@id/schedules_fragment"
+    android:label="Horarios"
+    tools:ignore="UnusedNavigation,UnusedIds">
+
+    <fragment
+        android:id="@+id/schedules_fragment"
+        android:name="esser.marcelo.portfolio.schedules.scenes.schedule.SchedulesFragment"
+        android:label="Horarios">
+        <argument
+            android:name="lineWay"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="lineCode"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="lineName"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+</navigation>
