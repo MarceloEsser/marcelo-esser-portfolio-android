@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="esser.marcelo.portfolio.line.LinesViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="esser.marcelo.portfolio.line.LinesFragment">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundColor"
+            tools:context=".view.activity.vicasa.VicasaLinesActivity">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/lines_toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="@color/primaryDarkColor"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/activity_home_title"
+                        style="@style/TitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/lines_fragment_label"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@color/grey400"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lines_toolbar" />
+
+                <TextView
+                    android:id="@+id/lines_activity_tv_without_lines"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/without_lines"
+                    android:textAlignment="center"
+                    android:textColor="@color/blueGrey800"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/clSearch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    app:layout_constraintVertical_bias="0.3"
+                    tools:visibility="visible" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/lines_activity_rv_lines"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@id/clSearch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lines_toolbar"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/row_line" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:elevation="6dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <View
+                        android:id="@+id/cl_search_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/grey300"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/activity_lines_et_search"
+                        android:layout_width="0dp"
+                        android:layout_height="32dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/background_search"
+                        android:hint="@string/line_or_line_way"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="50dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey600"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/activity_lines_imgbtn_filter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cl_search_divider" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lav_cancel_search_action"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginEnd="15dp"
+                        app:layout_constraintBottom_toBottomOf="@id/activity_lines_et_search"
+                        app:layout_constraintEnd_toEndOf="@id/activity_lines_et_search"
+                        app:layout_constraintTop_toTopOf="@id/activity_lines_et_search"
+                        app:lottie_fileName="search_cancel.json" />
+
+                    <ImageButton
+                        android:id="@+id/activity_lines_imgbtn_filter"
+                        android:layout_width="50dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/background_ib_action"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_filter"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lines_activity_img_lottie_conection"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="30dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/lines_activity_tv_connection_error"
+                    app:layout_constraintTop_toBottomOf="@id/lines_toolbar"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="wihtout_conection.json"
+                    app:lottie_loop="true" />
+
+                <TextView
+                    android:id="@+id/lines_activity_tv_connection_error"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/error_conection"
+                    android:textAlignment="center"
+                    android:textColor="@color/blueGrey800"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/clSearch"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/lines_toolbar"
+                    app:layout_constraintVertical_bias="0.8" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/bottom_sheet_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparentBlack"
+                android:visibility="gone" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/bottomSheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:behavior_peekHeight="0dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="10dp"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                tools:behavior_peekHeight="300dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bottom_sheet_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundColor">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvWays"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:nestedScrollingEnabled="false"
+                        android:textAlignment="center"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/mcv_collapse_event"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/row_line_way" />
+
+                    <View
+                        android:id="@+id/mcv_collapse_event"
+                        android:layout_width="50dp"
+                        android:layout_height="5dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/shape_drop_down_bottom_sheet"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
+</layout>

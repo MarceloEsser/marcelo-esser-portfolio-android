@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        minSdk 21
+        minSdk 23
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -57,12 +58,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
-    implementation "io.insert-koin:koin-core:$koin_version"
-    implementation "io.insert-koin:koin-core-ext:$koin_version"
-    implementation "io.insert-koin:koin-android-scope:2.2.3"
-    implementation "io.insert-koin:koin-android-viewmodel:2.2.3"
+    implementation "io.insert-koin:koin-android:3.1.2"
+    implementation "io.insert-koin:koin-core:3.1.2"
 
     implementation "androidx.room:room-runtime:2.4.2"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:2.4.2"
 }

@@ -9,7 +9,7 @@ import esser.marcelo.portfolio.core.model.busSchedule.Sunday
 import esser.marcelo.portfolio.core.model.busSchedule.Workingday
 
 @Database(
-    entities = [BusLine::class, Workingday::class, Saturday::class, Sunday::class, BaseSchedule::class],
+    entities = [BusLine::class],
     version = 1,
     exportSchema = false
 )

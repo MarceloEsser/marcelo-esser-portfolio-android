@@ -1,7 +1,6 @@
 package esser.marcelo.portfolio.core.callAdapter
 
-import esser.marcelo.portfolio.core.repository.wrapper.ApiResult
-import kotlinx.coroutines.Deferred
+import esser.marcelo.portfolio.core.wrapper.ApiResult
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
@@ -21,24 +20,15 @@ class CallAdapterFactory : CallAdapter.Factory() {
         returnType: Type,
         annotations: Array<Annotation>,
         retrofit: Retrofit
-    ): CallAdapter<*, *>? {
+    ): CallAdapter<*, *> {
 
-        if (getRawType(returnType) is Deferred<*>) {
-            val parameterUpperBound = getParameterUpperBound(0, returnType as ParameterizedType)
+        val parameterUpperBound = getParameterUpperBound(0, returnType as ParameterizedType)
 
-            val rawType = getRawType(parameterUpperBound)
+        if (parameterUpperBound !is ParameterizedType)
+            throw IllegalArgumentException("resource must be parameterized")
 
-            if (rawType != ApiResult::class.java)
-                throw IllegalArgumentException("The type must be a ApiResult")
+        val bodyType = getParameterUpperBound(0, parameterUpperBound)
 
-            if (parameterUpperBound !is ParameterizedType)
-                throw IllegalArgumentException("resource must be parameterized")
-
-
-            val bodyType = getParameterUpperBound(0, parameterUpperBound)
-
-            return MyCallAdapter<Any>(bodyType)
-        }
-        throw IllegalArgumentException("return type must be Deferred")
+        return CallAdapter<Any>(bodyType)
     }
 }

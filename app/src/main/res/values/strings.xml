@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MarceloEsserPortfolio</string>
+    <string name="lines_fragment_label">Linhas Sogal</string>
+    <string name="without_lines">Não há linhas</string>
+    <string name="line_or_line_way">Linha ou código</string>
+    <string name="error_conection">Houve um erro ao carregar as linhas</string>
 </resources>

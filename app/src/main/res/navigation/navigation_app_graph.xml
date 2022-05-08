@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/lines_fragment">
+    <fragment
+        android:id="@+id/lines_fragment"
+        android:name="esser.marcelo.portfolio.line.LinesFragment"
+        android:label="@string/lines_fragment_label">
+    </fragment>
+</navigation>

@@ -1,7 +1,7 @@
 package esser.marcelo.portfolio
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import esser.marcelo.portfolio.commons.base.BaseActivity
 
 /**
  * @author Marcelo Esser
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
  * @since 05/05/22
  */
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

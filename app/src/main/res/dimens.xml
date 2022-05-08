@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Generic Margins-->
+    <dimen name="x_extra_small_margin">4dp</dimen>
+    <dimen name="extra_small_margin">8dp</dimen>
+    <dimen name="small_margin">12dp</dimen>
+    <dimen name="medium_margin">16dp</dimen>
+    <dimen name="l_medium_margin">20dp</dimen>
+    <dimen name="large_margin">24dp</dimen>
+    <dimen name="extra_large_margin">32dp</dimen>
+    <dimen name="x_extra_large_margin">56dp</dimen>
+
+    <dimen name="card_corner_dimen">10dp</dimen>
+
+    <!--Font Sizes-->
+    <dimen name="extra_small_font_size">12sp</dimen>
+    <dimen name="default_font_size">14sp</dimen>
+    <dimen name="small_font_size">16sp</dimen>
+    <dimen name="medium_font_size">18sp</dimen>
+    <dimen name="l_medium_font_size">20sp</dimen>
+    <dimen name="large_font_size">22sp</dimen>
+    <dimen name="extra_large_font_size">26sp</dimen>
+    <dimen name="x_extra_large_font_size">30sp</dimen>
+
+
+    <!--Other dimensions-->
+    <dimen name="dietbox_logo_login_dimension">114dp</dimen>
+    <dimen name="food_plan_icon_size">18dp</dimen>
+    <dimen name="food_plan_chip_height">48dp</dimen>
+    <dimen name="progress_indicator_height">48dp</dimen>
+    <dimen name="card_thumbnail_dimen">87dp</dimen>
+</resources>

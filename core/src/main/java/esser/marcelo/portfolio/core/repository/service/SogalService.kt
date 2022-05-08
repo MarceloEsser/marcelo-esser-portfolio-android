@@ -1,11 +1,11 @@
 package esser.marcelo.portfolio.core.repository.service
 
-import esser.marcelo.portfolio.core.repository.DataBoundResource
+import esser.marcelo.portfolio.core.model.busLine.BusLine
+import esser.marcelo.portfolio.core.DataBoundResource
 import esser.marcelo.portfolio.core.repository.database.AppDao
 import esser.marcelo.portfolio.core.model.busSchedule.SchedulesResponse
-import esser.marcelo.portfolio.core.repository.wrapper.Resource
+import esser.marcelo.portfolio.core.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 /**
  * @author Marcelo Esser
@@ -16,8 +16,8 @@ import kotlinx.coroutines.flow.flow
  */
 
 interface SogalServiceDelegate {
-    suspend fun getSchedules(lineWay: String, lineCode: String): Flow<Resource<SchedulesResponse?>>
-//    suspend fun getLines(): Flow<Resource<List<BusLine>?>>
+    suspend fun getSchedules(lineWay: String, lineCode: String): Flow<Resource<SchedulesResponse>>
+    suspend fun getLines(): Flow<Resource<List<BusLine>>>
 //    suspend fun getSogalItineraries(lineCode: String): Flow<Resource<BusLine?>>
 }
 
@@ -29,37 +29,26 @@ class SogalService(
     override suspend fun getSchedules(
         lineWay: String,
         lineCode: String
-    ): Flow<Resource<SchedulesResponse?>> {
-        return flow {
-            DataBoundResource(
-                fetchFromDataBase = { dao.getSchedules() },
-                shouldFetchFromNetwork = { true },
-                fetchFromNetwork = { _mApi.getSogalSchedulesAsync(lineWay, lineCode) },
-                saveCallResult = { scheduleResponse ->
-                    //TODO: Insert each schedule (working day, saturday and sunday)
-                    dao.insertSchedules(scheduleResponse)
-                }
-            ).build()
-        }
+    ): Flow<Resource<SchedulesResponse>> {
+        return DataBoundResource(
+            fetchFromDataBase = { SchedulesResponse() },
+            shouldFetchFromNetwork = { true },
+            fetchFromNetwork = { _mApi.postSogalSchedulesAsync(lineWay, lineCode) },
+            saveCallResult = { scheduleResponse ->
+                //TODO: Insert each schedule (working day, saturday and sunday)
+            }
+        ).build()
+
     }
-//
-//    override suspend fun getLines(): Flow<Resource<List<BusLine>?>> {
-//        return flow {
-////            NetworkBoundResource(
-////                collector = this,
-////                processResponse = { it },
-////                call = _mApi.getSogalListAsync(SEARCH_LINES)
-////            ).build()
-//        }
-//    }
-//
-//    override suspend fun getSogalItineraries(lineCode: String): Flow<Resource<BusLine?>> {
-//        return flow {
-////            NetworkBoundResource(
-////                collector = this,
-////                processResponse = { it },
-////                call = _mApi.getSogalItinerariesAsync(SEARCH_ITINERARIES, lineCode)
-////            ).build()
-//        }
-//    }
+
+    override suspend fun getLines(): Flow<Resource<List<BusLine>>> {
+        return DataBoundResource(
+            fetchFromDataBase = { listOf() },
+            shouldFetchFromNetwork = { true },
+            fetchFromNetwork = { _mApi.postSogalLines("buscaLinhas") },
+            saveCallResult = { lines ->
+                print("try to save call on lines service")
+            }
+        ).build()
+    }
 }
