@@ -11,6 +11,7 @@ import esser.marcelo.portfolio.databinding.RowLineBinding
 class LinesAdapter(
     private val lines: List<BaseLine>,
     private val context: Context,
+    private val clickEvent: (line: BaseLine) -> Unit
 ) : RecyclerView.Adapter<LinesAdapter.LinesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinesViewHolder {
@@ -23,13 +24,18 @@ class LinesAdapter(
 
     override fun onBindViewHolder(viewHolder: LinesViewHolder, position: Int) {
         val line = lines[position]
-        viewHolder.bind(line)
+        viewHolder.bind(line, clickEvent)
     }
 
-    class LinesViewHolder(inflater: LayoutInflater, parent: ViewGroup) : BaseViewHolder<RowLineBinding>(
-        binding = RowLineBinding.inflate(inflater, parent, false)
-    ) {
-        fun bind(line: BaseLine) {
+    class LinesViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
+        BaseViewHolder<RowLineBinding>(
+            binding = RowLineBinding.inflate(inflater, parent, false)
+        ) {
+        fun bind(line: BaseLine, clickEvent: (line: BaseLine) -> Unit) {
+            binding.root.setOnClickListener {
+                clickEvent.invoke(line)
+            }
+
             binding.line = line
             binding.executePendingBindings()
         }

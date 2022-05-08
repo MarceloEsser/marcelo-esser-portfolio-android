@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/primaryColor</color>
-    <color name="colorPrimaryDark">@color/primaryDarkColor</color>
-    <color name="colorAccent">#4527a0</color>
+    <color name="colorPrimary">@color/cyan600</color>
+    <color name="colorPrimaryDark">@color/grey800</color>
+    <color name="colorAccent">#12005e</color>
     <color name="colorAccentLight">#7c43bd</color>
 
     <color name="white">#ffffff</color>
@@ -285,15 +285,14 @@
     <color name="blueGrey900">#263238</color>
 
 
-    <color name="primaryColor">@color/cyan900</color>
-    <color name="primaryLightColor">@color/cyan700</color>
-    <color name="primaryDarkColor">@color/cyan900</color>
+    <color name="primaryColor">#00838f</color>
+    <color name="primaryLightColor">#4fb3bf</color>
     <color name="secondaryColor">#4a148c</color>
     <color name="secondaryLightColor">#7c43bd</color>
-    <color name="secondaryDarkColor">#4527a0</color>
+    <color name="secondaryDarkColor">#12005e</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
-    <color name="backgroundColor">@color/grey50</color>
-
+    <color name="backgroundColor">@color/grey800</color>
+    <color name="contrastColor">@color/grey50</color>
 
 </resources>

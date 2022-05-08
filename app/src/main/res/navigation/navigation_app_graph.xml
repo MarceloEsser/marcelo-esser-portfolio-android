@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@id/lines_fragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_line_schedule_navigation"
+    app:startDestination="@id/lines_fragment"
+    tools:ignore="UnusedNavigation,UnusedIds">
+
+    <include app:graph="@navigation/navigation_schedules"/>
+
     <fragment
         android:id="@+id/lines_fragment"
-        android:name="esser.marcelo.portfolio.line.LinesFragment"
+        android:name="esser.marcelo.portfolio.scenes.line.LinesFragment"
         android:label="@string/lines_fragment_label">
+        <action
+            android:id="@+id/action_lines_fragment_to_schedules_fragment"
+            app:destination="@id/schedules_navigation"
+            app:popUpTo="@+id/lines_fragment" />
     </fragment>
 </navigation>

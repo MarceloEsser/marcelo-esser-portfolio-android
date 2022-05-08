@@ -32,6 +32,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
 ) : Fragment() {
 
     lateinit var viewBinding: B
+    var savedInstanceState: Bundle? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

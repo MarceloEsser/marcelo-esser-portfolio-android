@@ -3,19 +3,149 @@
 <data>
     <variable
         name="viewModel"
-        type="esser.marcelo.portfolio.schedules.SchedulesViewModel" />
+        type="esser.marcelo.portfolio.schedules.scenes.schedule.SchedulesViewModel" />
 </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SchedulesFragment">
+        tools:context=".scenes.schedule.SchedulesFragment">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Hello" />
+            android:background="@color/backgroundColor"
+            tools:context=".view.activity.sogal.SogalSchedulesActivity">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_header_content"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                style="@style/SchedulesCoordinator">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:textSize="32sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    tools:text="Sogal"
+                    app:layout_constraintBottom_toBottomOf="@id/img_btn_close"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/img_btn_close" />
+
+                <ImageButton
+                    android:id="@+id/img_btn_close"
+                    style="@style/IBActionStyle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/ll_income_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                    app:layout_constraintVertical_bias="0.6">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/shcedule_activity_tv_line_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:ellipsize="end"
+                        android:text="@{viewModel.lineName}"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:maxLines="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toTopOf="@id/shcedule_activity_tv_line_code"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="asafsafasd" />
+
+                    <TextView
+                        android:id="@+id/shcedule_activity_tv_line_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@{viewModel.lineCode}"
+                        android:fontFamily="@font/ubuntu_regular"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/shcedule_activity_tv_line_name"
+                        tools:text="5001" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_header_content"
+                android:id="@+id/tv_without_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+                android:elevation="20dp"
+                android:textColor="@color/blueGrey800"
+                android:textSize="18sp"
+                android:text="Não há horarios"
+                android:textAlignment="center"
+                tools:visibility="visible"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:overScrollMode="never"
+                android:id="@+id/schedules_activity_rv_schedules"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:nestedScrollingEnabled="true"
+                android:stateListAnimator="@android:anim/anticipate_overshoot_interpolator"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/schedules_bottom_navigation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_header_content" />
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/schedules_bottom_navigation"
+                android:layout_width="0dp"
+                android:elevation="10dp"
+                android:layout_height="56dp"
+                android:background="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:itemIconTint="@drawable/selector_lines_bottom_navigation"
+                app:itemTextColor="@drawable/selector_lines_bottom_navigation"
+                app:menu="@menu/schedules_bottom_navigation_menu" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </FrameLayout>
 </layout>
