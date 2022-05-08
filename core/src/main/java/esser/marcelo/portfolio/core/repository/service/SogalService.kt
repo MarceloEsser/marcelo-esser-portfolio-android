@@ -3,7 +3,7 @@ package esser.marcelo.portfolio.core.repository.service
 import esser.marcelo.portfolio.core.model.busLine.BusLine
 import esser.marcelo.portfolio.core.DataBoundResource
 import esser.marcelo.portfolio.core.repository.database.AppDao
-import esser.marcelo.portfolio.core.model.busSchedule.SchedulesResponse
+import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
 import esser.marcelo.portfolio.core.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface SogalServiceDelegate {
-    suspend fun getSchedules(lineWay: String, lineCode: String): Flow<Resource<SchedulesResponse>>
+    suspend fun getSchedules(lineWay: String, lineCode: String): Flow<Resource<LineSchedules>>
     suspend fun getLines(): Flow<Resource<List<BusLine>>>
 //    suspend fun getSogalItineraries(lineCode: String): Flow<Resource<BusLine?>>
 }
@@ -29,9 +29,9 @@ class SogalService(
     override suspend fun getSchedules(
         lineWay: String,
         lineCode: String
-    ): Flow<Resource<SchedulesResponse>> {
+    ): Flow<Resource<LineSchedules>> {
         return DataBoundResource(
-            fetchFromDataBase = { SchedulesResponse() },
+            fetchFromDataBase = { LineSchedules() },
             shouldFetchFromNetwork = { true },
             fetchFromNetwork = { _mApi.postSogalSchedulesAsync(lineWay, lineCode) },
             saveCallResult = { scheduleResponse ->
@@ -43,11 +43,11 @@ class SogalService(
 
     override suspend fun getLines(): Flow<Resource<List<BusLine>>> {
         return DataBoundResource(
-            fetchFromDataBase = { listOf() },
+            fetchFromDataBase = { dao.getLines() },
             shouldFetchFromNetwork = { true },
             fetchFromNetwork = { _mApi.postSogalLines("buscaLinhas") },
             saveCallResult = { lines ->
-                print("try to save call on lines service")
+                dao.insertLines(lines)
             }
         ).build()
     }

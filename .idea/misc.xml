@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/layout/row_line.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/row_line_way.xml" value="0.1890625" />
         <entry key="commons/src/main/res/layout/lines_fragment.xml" value="0.2776268115942029" />
+        <entry key="features/schedules/src/main/res/layout/schedules_fragment.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -1,5 +1,6 @@
 package esser.marcelo.portfolio.core.model.busSchedule
 
+import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -12,12 +13,11 @@ import com.google.gson.annotations.SerializedName
 
 open class BaseSchedule(
     @SerializedName("hora")
+    @ColumnInfo(name = "hour")
     var hour: String = "",
 
-    @SerializedName("abrev")
-    var abrev: String =  "",
-
     @SerializedName("apd")
+    @ColumnInfo(name= "apd")
     var apd: String = "N"
 ) {
     fun isApd(): Boolean {

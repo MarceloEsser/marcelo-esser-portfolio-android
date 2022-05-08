@@ -30,4 +30,11 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
         viewBinding.viewModel = viewModel
     }
 
+    fun lineWays(): Map<String, String> {
+        return mapOf(
+            "Centro Bairro" to "buscaHorarioLinhaCB",
+            "Bairro Centro" to "buscaHorarioLinhaBC"
+        )
+    }
+
 }

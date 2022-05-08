@@ -9,3 +9,4 @@ rootProject.name = "MarceloEsserPortfolio"
 include ':app'
 include ':core'
 include ':commons'
+include ':features:schedules'

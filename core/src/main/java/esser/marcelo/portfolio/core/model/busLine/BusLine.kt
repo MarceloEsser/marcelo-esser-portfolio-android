@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import esser.marcelo.portfolio.core.model.Itinerary
+import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
 
 /**
  * @author Marcelo Esser
@@ -20,8 +21,7 @@ class BusLine(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 ) : BaseLine() {
-    @SerializedName("itinerarios")
-    @Expose
+
     @Ignore
-    var itineraries: List<Itinerary>? = null
+    var schedules: LineSchedules? = null
 }

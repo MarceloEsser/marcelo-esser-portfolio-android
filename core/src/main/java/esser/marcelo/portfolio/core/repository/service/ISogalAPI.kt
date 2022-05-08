@@ -1,8 +1,7 @@
 package esser.marcelo.portfolio.core.repository.service
 
 import esser.marcelo.portfolio.core.model.busLine.BusLine
-import esser.marcelo.portfolio.core.model.busSchedule.SchedulesResponse
-import esser.marcelo.portfolio.core.wrapper.ApiResult
+import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
 import esser.marcelo.portfolio.core.wrapper.Resource
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -22,7 +21,7 @@ interface ISogalAPI {
     suspend fun postSogalSchedulesAsync(
         @Field("action") lineWay: String,
         @Field("linha") lineCode: String
-    ): Resource<SchedulesResponse>
+    ): Resource<LineSchedules>
 
     @POST("http://sogal.com.br/wp-content/themes/MobidickTheme/linhas/searchLine.php")
     @FormUrlEncoded
