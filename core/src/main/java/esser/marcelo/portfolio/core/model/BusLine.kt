@@ -22,15 +22,15 @@ class BusLine(
     val id: Long,
     @SerializedName("nomeLinha")
     @Expose
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "name", defaultValue = "")
     var name: String,
 
     @SerializedName("linha")
     @Expose
-    @ColumnInfo(name = "code")
+    @ColumnInfo(name = "code", defaultValue = "")
     var code: String,
 
-) : Serializable {
+    ) : Serializable {
     @Ignore
     var way: LineWay? = null
 }

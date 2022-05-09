@@ -35,24 +35,23 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
-    implementation "io.insert-koin:koin-android:3.1.2"
-    implementation "io.insert-koin:koin-core:3.1.2"
+    implementation core
+    implementation appcompat
+    implementation material
+    implementation legacy_support
+    implementation lifecycle_viewmodel
+    implementation lifecycle_livedata
+    implementation navigation_fragment
+    implementation koin_android
+    implementation koin_core
 
-    testImplementation "androidx.room:room-testing:2.4.2"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "io.mockk:mockk:1.12.3"
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation room_testing
+    testImplementation coroutines_test
+    testImplementation arch_core_testing
+    testImplementation mockk
+    testImplementation junit
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation androidx_ext_junit
 
     implementation(project(':core'))
     implementation(project(':commons'))
