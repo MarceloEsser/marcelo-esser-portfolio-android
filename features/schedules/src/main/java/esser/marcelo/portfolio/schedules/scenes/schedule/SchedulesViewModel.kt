@@ -37,27 +37,29 @@ class SchedulesViewModel(
         //TODO: implement status - Loading
 
         if (line == null) {
-            _error.postValue("linha não pode estar nula")
+            _error.postValue("you need a line to get the schedules")
             return
         }
         line?.let {
             viewModelScope.launch(dispatcher) {
                 service.getSchedules(it).collect { resource ->
-                    resource.data?.let { data ->
-                        when (resource.requestStatus) {
-                            Status.success -> {
+                    when (resource.requestStatus) {
+                        Status.success -> {
+                            if (resource.data == null)
+                                _error.postValue(resource.message ?: "")
+
+                            resource.data?.let { data ->
                                 listMap = mapOf(
                                     R.id.action_workingdays to data.workingDays,
                                     R.id.action_saturday to data.saturdays,
                                     R.id.action_sunday to data.sundays,
                                 )
-
                                 _schedule.postValue(data)
                             }
-                            Status.error -> _error.postValue(resource.message ?: "")
-                            else -> {
-                                _error.postValue(resource.message ?: "")
-                            }
+                        }
+                        Status.error -> _error.postValue(resource.message ?: "")
+                        else -> {
+                            _error.postValue(resource.message ?: "")
                         }
                     }
                 }

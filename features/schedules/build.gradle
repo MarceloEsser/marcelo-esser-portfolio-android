@@ -49,6 +49,11 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.2"
     implementation "io.insert-koin:koin-core:3.1.2"
 
+    testImplementation "androidx.room:room-testing:2.4.2"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "io.mockk:mockk:1.12.3"
+
     implementation(project(':core'))
     implementation(project(':commons'))
 }
