@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import esser.marcelo.portfolio.core.model.busLine.BusLine
+import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
 import kotlinx.coroutines.flow.collect

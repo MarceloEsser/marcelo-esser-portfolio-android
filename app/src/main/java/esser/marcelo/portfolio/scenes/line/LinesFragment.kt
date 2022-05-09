@@ -4,16 +4,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.core.os.bundleOf
-import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import esser.marcelo.portfolio.R
 import esser.marcelo.portfolio.adapter.LineWaysAdapter
 import esser.marcelo.portfolio.adapter.LinesAdapter
 import esser.marcelo.portfolio.commons.base.BaseFragment
-import esser.marcelo.portfolio.core.model.busLine.BusLine
+import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.databinding.LinesFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

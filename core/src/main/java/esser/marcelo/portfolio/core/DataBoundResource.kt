@@ -1,9 +1,5 @@
 package esser.marcelo.portfolio.core
 
-import esser.marcelo.portfolio.core.wrapper.ApiEmptyResult
-import esser.marcelo.portfolio.core.wrapper.ApiFailureResult
-import esser.marcelo.portfolio.core.wrapper.ApiResult
-import esser.marcelo.portfolio.core.wrapper.ApiSuccessResult
 import esser.marcelo.portfolio.core.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -18,7 +14,7 @@ import kotlinx.coroutines.flow.flow
  */
 
 open class DataBoundResource<ResultType>(
-    private val shouldFetchFromNetwork: () -> Boolean,
+    private val shouldFetch: () -> Boolean,
     private val fetchFromNetwork: suspend () -> Resource<ResultType>,
     private val saveCallResult: (suspend (item: ResultType) -> Unit),
     private val fetchFromDataBase: (suspend () -> ResultType?),
@@ -29,7 +25,7 @@ open class DataBoundResource<ResultType>(
             emit(Resource.loading())
             fetchFromDatabase()
 
-            if (shouldFetchFromNetwork.invoke())
+            if (shouldFetch.invoke())
                 fetchFromNetwork()
         }
     }

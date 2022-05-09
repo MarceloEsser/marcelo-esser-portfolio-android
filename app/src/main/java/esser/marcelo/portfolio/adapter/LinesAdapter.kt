@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import esser.marcelo.portfolio.commons.base.BaseViewHolder
-import esser.marcelo.portfolio.core.model.busLine.BusLine
+import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.databinding.RowLineBinding
 
 class LinesAdapter(

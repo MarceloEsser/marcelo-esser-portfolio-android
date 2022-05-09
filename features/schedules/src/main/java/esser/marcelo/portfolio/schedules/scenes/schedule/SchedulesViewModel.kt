@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import esser.marcelo.portfolio.core.Status
-import esser.marcelo.portfolio.core.model.busLine.BusLine
-import esser.marcelo.portfolio.core.model.busSchedule.BaseSchedule
-import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
+import esser.marcelo.portfolio.core.model.BusLine
+import esser.marcelo.portfolio.core.model.Schedule
+import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
 import esser.marcelo.portfolio.schedules.R
 import kotlinx.coroutines.CoroutineDispatcher
@@ -27,7 +27,7 @@ class SchedulesViewModel(
         return@lazy _schedule
     }
 
-    lateinit var listMap: Map<Int, List<BaseSchedule>?>
+    lateinit var listMap: Map<Int, List<Schedule>?>
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>

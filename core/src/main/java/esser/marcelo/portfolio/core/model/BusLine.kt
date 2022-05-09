@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.model.busLine
+package esser.marcelo.portfolio.core.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,8 +6,6 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import esser.marcelo.portfolio.core.model.LineWay
-import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
 import java.io.Serializable
 
 /**
@@ -22,12 +20,12 @@ import java.io.Serializable
 class BusLine(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    @SerializedName(value = "nome_master", alternate = ["nomeLinha"])
+    @SerializedName("nomeLinha")
     @Expose
     @ColumnInfo(name = "name")
     var name: String,
 
-    @SerializedName(value = "linhas_master", alternate = ["linha"])
+    @SerializedName("linha")
     @Expose
     @ColumnInfo(name = "code")
     var code: String,

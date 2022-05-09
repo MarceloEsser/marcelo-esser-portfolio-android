@@ -52,7 +52,3 @@ sealed class ApiResult<T> {
             response.body() != null && response.code() != 204
     }
 }
-
-class ApiEmptyResult<T> : ApiResult<T>()
-data class ApiFailureResult<T>(val message: String?) : ApiResult<T>()
-data class ApiSuccessResult<T>(val body: T?) : ApiResult<T>()

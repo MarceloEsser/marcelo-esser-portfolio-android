@@ -2,11 +2,10 @@ package esser.marcelo.portfolio.core.repository.database
 
 import androidx.room.Dao
 import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import esser.marcelo.portfolio.core.model.busLine.BusLine
-import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
+import esser.marcelo.portfolio.core.model.BusLine
+import esser.marcelo.portfolio.core.model.LineSchedules
 
 @Dao
 interface AppDao {

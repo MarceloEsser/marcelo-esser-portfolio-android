@@ -3,7 +3,7 @@
     <data>
          <variable
              name="line"
-             type="esser.marcelo.portfolio.core.model.busLine.BusLine" />
+             type="esser.marcelo.portfolio.core.model.BusLine" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

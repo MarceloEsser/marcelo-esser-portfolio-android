@@ -1,9 +1,9 @@
 package esser.marcelo.portfolio.core.repository.service
 
-import esser.marcelo.portfolio.core.model.busLine.BusLine
+import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.DataBoundResource
 import esser.marcelo.portfolio.core.repository.database.AppDao
-import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
+import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -24,18 +24,18 @@ class SogalService(
     private val _mApi: ISogalAPI,
     private val dao: AppDao,
 ) : SogalServiceDelegate {
-
+    private val search_lines_action = "buscaLinhas"
     override suspend fun getSchedules(
         busLine: BusLine
     ): Flow<Resource<LineSchedules>> {
         return DataBoundResource(
             fetchFromDataBase = { dao.getLineSchedule(busLine.id) },
-            shouldFetchFromNetwork = { true },
+            shouldFetch = { true },
             fetchFromNetwork = {
                 if (busLine.way != null) {
-                    _mApi.postSogalSchedulesAsync(busLine.way!!.code, busLine.code)
+                    _mApi.postSogalSchedules(busLine.way!!.code, busLine.code)
                 } else {
-                    Resource.error(message = "", null)
+                    Resource.error(message = "Line way must not be null", null)
                 }
             },
             saveCallResult = { scheduleResponse ->
@@ -49,8 +49,8 @@ class SogalService(
     override suspend fun getLines(): Flow<Resource<List<BusLine>>> {
         return DataBoundResource(
             fetchFromDataBase = { dao.getLines() },
-            shouldFetchFromNetwork = { true },
-            fetchFromNetwork = { _mApi.postSogalLines("buscaLinhas") },
+            shouldFetch = { true },
+            fetchFromNetwork = { _mApi.postSogalLines(search_lines_action) },
             saveCallResult = { lines ->
                 dao.insertLines(lines)
             }

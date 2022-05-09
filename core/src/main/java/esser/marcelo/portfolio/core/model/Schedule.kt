@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.model.busSchedule
+package esser.marcelo.portfolio.core.model
 
 import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName
  * @since 31/08/20
  */
 
-open class BaseSchedule(
+open class Schedule(
     @SerializedName("hora")
     @ColumnInfo(name = "hour")
     var hour: String = "",
