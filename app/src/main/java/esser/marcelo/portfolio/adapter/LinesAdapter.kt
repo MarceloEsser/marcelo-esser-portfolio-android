@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import esser.marcelo.portfolio.commons.base.BaseViewHolder
-import esser.marcelo.portfolio.core.model.busLine.BaseLine
+import esser.marcelo.portfolio.core.model.busLine.BusLine
 import esser.marcelo.portfolio.databinding.RowLineBinding
 
 class LinesAdapter(
-    private val lines: List<BaseLine>,
+    private val lines: List<BusLine>,
     private val context: Context,
-    private val clickEvent: (line: BaseLine) -> Unit
+    private val clickEvent: (line: BusLine) -> Unit
 ) : RecyclerView.Adapter<LinesAdapter.LinesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LinesViewHolder {
@@ -31,7 +31,7 @@ class LinesAdapter(
         BaseViewHolder<RowLineBinding>(
             binding = RowLineBinding.inflate(inflater, parent, false)
         ) {
-        fun bind(line: BaseLine, clickEvent: (line: BaseLine) -> Unit) {
+        fun bind(line: BusLine, clickEvent: (line: BusLine) -> Unit) {
             binding.root.setOnClickListener {
                 clickEvent.invoke(line)
             }

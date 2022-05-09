@@ -16,9 +16,8 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface SogalServiceDelegate {
-    suspend fun getSchedules(lineWay: String, lineCode: String): Flow<Resource<LineSchedules>>
+    suspend fun getSchedules(busLine: BusLine): Flow<Resource<LineSchedules>>
     suspend fun getLines(): Flow<Resource<List<BusLine>>>
-//    suspend fun getSogalItineraries(lineCode: String): Flow<Resource<BusLine?>>
 }
 
 class SogalService(
@@ -27,15 +26,21 @@ class SogalService(
 ) : SogalServiceDelegate {
 
     override suspend fun getSchedules(
-        lineWay: String,
-        lineCode: String
+        busLine: BusLine
     ): Flow<Resource<LineSchedules>> {
         return DataBoundResource(
-            fetchFromDataBase = { LineSchedules() },
+            fetchFromDataBase = { dao.getLineSchedule(busLine.id) },
             shouldFetchFromNetwork = { true },
-            fetchFromNetwork = { _mApi.postSogalSchedulesAsync(lineWay, lineCode) },
+            fetchFromNetwork = {
+                if (busLine.way != null) {
+                    _mApi.postSogalSchedulesAsync(busLine.way!!.code, busLine.code)
+                } else {
+                    Resource.error(message = "", null)
+                }
+            },
             saveCallResult = { scheduleResponse ->
-                //TODO: Insert each schedule (working day, saturday and sunday)
+                scheduleResponse.lineId = busLine.id
+                dao.insertSchedule(scheduleResponse)
             }
         ).build()
 

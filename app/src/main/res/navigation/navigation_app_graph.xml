@@ -6,7 +6,7 @@
     app:startDestination="@id/lines_fragment"
     tools:ignore="UnusedNavigation,UnusedIds">
 
-    <include app:graph="@navigation/navigation_schedules"/>
+    <include app:graph="@navigation/navigation_schedules" />
 
     <fragment
         android:id="@+id/lines_fragment"
@@ -15,6 +15,12 @@
         <action
             android:id="@+id/action_lines_fragment_to_schedules_fragment"
             app:destination="@id/schedules_navigation"
-            app:popUpTo="@+id/lines_fragment" />
+            app:popUpTo="@+id/lines_fragment">
+            <argument
+                android:name="line"
+                android:defaultValue="@null"
+                app:argType="esser.marcelo.portfolio.core.model.busLine.BusLine"
+                app:nullable="true" />
+        </action>
     </fragment>
 </navigation>

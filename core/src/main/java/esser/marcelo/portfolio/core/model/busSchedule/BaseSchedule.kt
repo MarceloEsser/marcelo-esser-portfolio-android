@@ -17,10 +17,10 @@ open class BaseSchedule(
     var hour: String = "",
 
     @SerializedName("apd")
-    @ColumnInfo(name= "apd")
-    var apd: String = "N"
+    @ColumnInfo(name= "accessible")
+    var accessible: String = "N"
 ) {
-    fun isApd(): Boolean {
-        return apd == "S"
+    fun isAccessible(): Boolean {
+        return accessible == "S"
     }
 }

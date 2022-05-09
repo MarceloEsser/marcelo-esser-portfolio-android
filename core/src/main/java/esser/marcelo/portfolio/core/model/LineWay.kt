@@ -1,5 +1,8 @@
 package esser.marcelo.portfolio.core.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+
 class LineWay(
     val description: String,
     val code: String

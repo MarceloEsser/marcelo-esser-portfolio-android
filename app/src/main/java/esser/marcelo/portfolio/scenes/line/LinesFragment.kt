@@ -5,14 +5,14 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import esser.marcelo.portfolio.R
 import esser.marcelo.portfolio.adapter.LineWaysAdapter
 import esser.marcelo.portfolio.adapter.LinesAdapter
 import esser.marcelo.portfolio.commons.base.BaseFragment
-import esser.marcelo.portfolio.core.model.busLine.BaseLine
 import esser.marcelo.portfolio.core.model.busLine.BusLine
 import esser.marcelo.portfolio.databinding.LinesFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,7 +41,7 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
         )
     }
 
-    private fun lineClickEvent() = { line: BaseLine ->
+    private fun lineClickEvent() = { line: BusLine ->
         viewModel.line = line
 
         bottomSheetBehavior = BottomSheetBehavior.from<View>(viewBinding.bottomSheet)
@@ -52,15 +52,12 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
             configureBottomSheet(bottomSheetBehavior!!)
 
             viewBinding.rvWays.adapter = LineWaysAdapter(requireContext()) { lineWay ->
-                val bundle = bundleOf(
-                    "lineWay" to lineWay.code,
-                    "lineName" to line.name,
-                    "lineCode" to line.code
-                )
-                findNavController().navigate(
-                    R.id.action_lines_fragment_to_schedules_fragment,
-                    bundle
-                )
+                viewModel.line?.let {
+                    it.way = lineWay
+                    findNavController().navigate(
+                        LinesFragmentDirections.actionLinesFragmentToSchedulesFragment(it)
+                    )
+                }
             }
 
             bottomSheetBehavior?.peekHeight =

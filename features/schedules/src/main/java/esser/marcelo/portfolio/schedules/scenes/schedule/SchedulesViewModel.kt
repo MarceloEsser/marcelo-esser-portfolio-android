@@ -17,9 +17,7 @@ class SchedulesViewModel(
     private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    lateinit var lineName: String
-    lateinit var lineCode: String
-    lateinit var lineWay: String
+    var line: BusLine? = null
 
     private val _schedule = MutableLiveData<LineSchedules>()
     val schedule: LiveData<LineSchedules> by lazy {
@@ -32,21 +30,28 @@ class SchedulesViewModel(
         get() = _error
 
     private fun loadSchedules() {
-        viewModelScope.launch(dispatcher) {
-            service.getSchedules(lineWay, lineCode).collect { resource ->
-                resource.data?.let { data ->
-                    when (resource.requestStatus) {
-                        Status.success -> {
-                            _schedule.postValue(data)
-                        }
-                        Status.error -> _error.postValue(resource.message ?: "")
-                        else -> {
-                            _error.postValue(resource.message ?: "")
+        if (line == null) {
+            _error.postValue("linha não pode estar nula")
+            return
+        }
+        line?.let {
+            viewModelScope.launch(dispatcher) {
+                service.getSchedules(it).collect { resource ->
+                    resource.data?.let { data ->
+                        when (resource.requestStatus) {
+                            Status.success -> {
+                                _schedule.postValue(data)
+                            }
+                            Status.error -> _error.postValue(resource.message ?: "")
+                            else -> {
+                                _error.postValue(resource.message ?: "")
+                            }
                         }
                     }
                 }
             }
         }
+
     }
 
 }

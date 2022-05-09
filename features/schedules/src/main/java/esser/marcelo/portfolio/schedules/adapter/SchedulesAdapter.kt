@@ -2,11 +2,9 @@ package esser.marcelo.portfolio.schedules.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import esser.marcelo.portfolio.commons.base.BaseViewHolder
-import esser.marcelo.portfolio.core.model.busLine.BaseLine
 import esser.marcelo.portfolio.core.model.busSchedule.BaseSchedule
 import esser.marcelo.portfolio.schedules.databinding.RowScheduleBinding
 
@@ -39,7 +37,7 @@ class SchedulesAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (schedules[position].isApd())
+        if (schedules[position].isAccessible())
             return 1
         return 0
     }
@@ -51,7 +49,7 @@ class SchedulesAdapter(
         ) {
         fun bind(schedule: BaseSchedule) {
             binding.hour = schedule.hour
-            binding.isAccessible = schedule.isApd()
+            binding.isAccessible = schedule.isAccessible()
             binding.executePendingBindings()
         }
     }

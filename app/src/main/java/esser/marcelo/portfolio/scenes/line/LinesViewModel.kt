@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import esser.marcelo.portfolio.core.model.busLine.BusLine
 import esser.marcelo.portfolio.core.Status
-import esser.marcelo.portfolio.core.model.busLine.BaseLine
 import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -28,9 +27,7 @@ class LinesViewModel(
     val error: LiveData<String>
         get() = _error
 
-    var line: BaseLine? = null
-
-    private val _isLineFavorite: MutableLiveData<Boolean> = MutableLiveData()
+    var line: BusLine? = null
 
     private fun loadLines() {
         viewModelScope.launch(dispatcher) {
