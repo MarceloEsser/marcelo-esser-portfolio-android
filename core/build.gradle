@@ -73,7 +73,6 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.2"
     testImplementation "androidx.room:room-testing:2.4.2"
 
-    testImplementation "org.robolectric:robolectric:4.4"
     testImplementation "io.mockk:mockk:1.12.3"
 
 }

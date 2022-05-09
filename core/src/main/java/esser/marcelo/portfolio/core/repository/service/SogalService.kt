@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface SogalServiceDelegate {
-    suspend fun getSchedules(busLine: BusLine, shouldFetch: Boolean = true): Flow<Resource<LineSchedules>>
-    suspend fun getLines(): Flow<Resource<List<BusLine>>>
+    suspend fun getSchedules(busLine: BusLine, shouldCreateCall: Boolean = true): Flow<Resource<LineSchedules>>
+    suspend fun getLines(shouldCreateCall: Boolean = true): Flow<Resource<List<BusLine>>>
 }
 
 class SogalService(
@@ -29,16 +29,16 @@ class SogalService(
 
     override suspend fun getSchedules(
         busLine: BusLine,
-        shouldFetch: Boolean
+        shouldCreateCall: Boolean
     ): Flow<Resource<LineSchedules>> {
         return DataBoundResource(
-            shouldFetch = { shouldFetch },
-            fetchFromDataBase = {
+            shouldCreateCall = { shouldCreateCall },
+            loadFromDatabase = {
                 dao.getLineSchedule(busLine.id)
             },
-            fetchFromNetwork = {
+            createCall = {
                 if (busLine.way != null) {
-                    _mApi.postSogalSchedules("code", busLine.code)
+                    _mApi.postSogalSchedules(busLine.way!!.code, busLine.code)
                 } else {
                     Resource.error(message = "Line way must not be null", null)
                 }
@@ -51,11 +51,11 @@ class SogalService(
 
     }
 
-    override suspend fun getLines(): Flow<Resource<List<BusLine>>> {
+    override suspend fun getLines(shouldCreateCall: Boolean): Flow<Resource<List<BusLine>>> {
         return DataBoundResource(
-            fetchFromDataBase = { dao.getLines() },
-            shouldFetch = { true },
-            fetchFromNetwork = { _mApi.postSogalLines(search_lines_action) },
+            loadFromDatabase = { dao.getLines() },
+            shouldCreateCall = { shouldCreateCall },
+            createCall = { _mApi.postSogalLines(search_lines_action) },
             saveCallResult = { lines ->
                 dao.insertLines(lines)
             }

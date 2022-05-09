@@ -14,32 +14,31 @@ import kotlinx.coroutines.flow.flow
  */
 
 open class DataBoundResource<ResultType>(
-    private val shouldFetch: () -> Boolean,
-    private val fetchFromNetwork: suspend () -> Resource<ResultType>,
+    private val shouldCreateCall: () -> Boolean,
+    private val createCall: suspend () -> Resource<ResultType>,
     private val saveCallResult: (suspend (item: ResultType) -> Unit),
-    private val fetchFromDataBase: (suspend () -> ResultType?),
+    private val loadFromDatabase: (suspend () -> ResultType?),
 ) {
 
     fun build(): Flow<Resource<ResultType>> {
         return flow {
             emit(Resource.loading())
+            fetchFromDatabase()
 
-            if (shouldFetch.invoke())
-                fetchFromDatabase()
-
-            fetchFromNetwork()
+            if (shouldCreateCall.invoke())
+                fetchFromNetwork()
         }
     }
 
     private suspend fun FlowCollector<Resource<ResultType>>.fetchFromDatabase() {
-        val value = fetchFromDataBase.invoke()
+        val value = loadFromDatabase.invoke()
         value?.let { databaseValue ->
             emit(Resource.success(databaseValue))
         }
     }
 
     private suspend fun FlowCollector<Resource<ResultType>>.fetchFromNetwork() {
-        val result = fetchFromNetwork.invoke()
+        val result = createCall.invoke()
 
         if (result.requestStatus == Status.success) {
             result.data?.let {
