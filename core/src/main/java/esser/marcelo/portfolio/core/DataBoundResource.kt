@@ -23,10 +23,11 @@ open class DataBoundResource<ResultType>(
     fun build(): Flow<Resource<ResultType>> {
         return flow {
             emit(Resource.loading())
-            fetchFromDatabase()
 
             if (shouldFetch.invoke())
-                fetchFromNetwork()
+                fetchFromDatabase()
+
+            fetchFromNetwork()
         }
     }
 
