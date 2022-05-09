@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<data>
-    <variable
-        name="viewModel"
-        type="esser.marcelo.portfolio.schedules.scenes.schedule.SchedulesViewModel" />
-</data>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="esser.marcelo.portfolio.schedules.scenes.schedule.SchedulesViewModel" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="hasSchedule"
+            type="boolean" />
+
+    </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -23,23 +32,23 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_header_content"
+                style="@style/SchedulesCoordinator"
                 android:layout_width="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
-                style="@style/SchedulesCoordinator">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tv_title"
-                    android:textSize="32sp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/ubuntu_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    tools:text="Sogal"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:text="Sogal"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
                     app:layout_constraintBottom_toBottomOf="@id/img_btn_close"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -55,8 +64,8 @@
                     android:id="@+id/ll_income_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -74,9 +83,9 @@
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:ellipsize="end"
-                        android:text="@{viewModel.line.name}"
                         android:fontFamily="@font/ubuntu_regular"
                         android:maxLines="1"
+                        android:text="@{viewModel.line.name}"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -86,13 +95,13 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="asafsafasd" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/shcedule_activity_tv_line_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="@{viewModel.line.code}"
                         android:fontFamily="@font/ubuntu_regular"
+                        android:text="@{viewModel.line.code}"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -101,48 +110,47 @@
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_header_content"
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_without_items"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:elevation="20dp"
+                android:elevation="25dp"
+                android:text="@string/without_schedules"
+                android:textAlignment="center"
                 android:textColor="@color/blueGrey800"
                 android:textSize="18sp"
-                android:text="Não há horarios"
-                android:textAlignment="center"
-                tools:visibility="visible"
-                android:visibility="gone" />
+                android:visibility="@{hasSchedule ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_header_content" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:overScrollMode="never"
                 android:id="@+id/schedules_activity_rv_schedules"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:nestedScrollingEnabled="true"
+                android:overScrollMode="never"
                 android:stateListAnimator="@android:anim/anticipate_overshoot_interpolator"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/schedules_bottom_navigation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cl_header_content" />
+                app:layout_constraintTop_toBottomOf="@id/cl_header_content"
+                app:visibility="@{hasSchedule ? View.VISIBLE : View.GONE}" />
 
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/schedules_bottom_navigation"
                 android:layout_width="0dp"
-                android:elevation="10dp"
                 android:layout_height="56dp"
                 android:background="@color/colorPrimaryDark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:elevation="10dp"
                 app:itemIconTint="@drawable/selector_lines_bottom_navigation"
                 app:itemTextColor="@drawable/selector_lines_bottom_navigation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:menu="@menu/schedules_bottom_navigation_menu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.busLine.BusLine
+import esser.marcelo.portfolio.core.model.busSchedule.BaseSchedule
 import esser.marcelo.portfolio.core.model.busSchedule.LineSchedules
 import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
+import esser.marcelo.portfolio.schedules.R
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -25,6 +27,8 @@ class SchedulesViewModel(
         return@lazy _schedule
     }
 
+    lateinit var listMap: Map<Int, List<BaseSchedule>?>
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
         get() = _error
@@ -40,6 +44,12 @@ class SchedulesViewModel(
                     resource.data?.let { data ->
                         when (resource.requestStatus) {
                             Status.success -> {
+                                listMap = mapOf(
+                                    R.id.action_workingdays to data.workingDays,
+                                    R.id.action_saturday to data.saturdays,
+                                    R.id.action_sunday to data.sundays,
+                                )
+
                                 _schedule.postValue(data)
                             }
                             Status.error -> _error.postValue(resource.message ?: "")

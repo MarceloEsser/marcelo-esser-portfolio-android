@@ -1,13 +1,11 @@
 package esser.marcelo.portfolio.schedules.scenes.schedule
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.View.GONE
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import esser.marcelo.portfolio.commons.base.BaseFragment
 import esser.marcelo.portfolio.core.model.busSchedule.BaseSchedule
 import esser.marcelo.portfolio.schedules.R
@@ -27,66 +25,38 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.line = args.line
 
-        viewModel.schedule.observe(requireActivity()) { lineSchedules ->
-            val workingDaySchedule = lineSchedules.workingDays ?: listOf()
-            adapter = SchedulesAdapter(requireCompatActivity(), workingDaySchedule)
-            viewBinding.schedulesActivityRvSchedules.adapter = adapter
-            bottomNavigationBarListener()
+        viewModel.schedule.observe(requireActivity()) { configureShowingData(it.workingDays) }
+
+        viewModel.error.observe(requireCompatActivity()) { message ->
+            Toast.makeText(requireCompatActivity(), message, Toast.LENGTH_LONG).show()
         }
 
-        viewModel.error.observe(
-            requireCompatActivity()
-        ) { error -> Toast.makeText(requireCompatActivity(), error, Toast.LENGTH_LONG).show() }
-
-    }
-
-    private fun bottomNavigationBarListener() {
-        viewModel.schedule.value?.let { lineSchedules ->
-            viewBinding.schedulesBottomNavigation.setOnItemSelectedListener {
-                when (it.itemId) {
-                    R.id.action_workingdays -> {
-                        configureList(lineSchedules.workingDays)
-                        true
-                    }
-                    R.id.action_saturday -> {
-                        configureList(lineSchedules.saturdays)
-                        true
-                    }
-                    R.id.action_sunday -> {
-                        configureList(lineSchedules.sundays)
-                        true
-                    }
-
-                    else -> false
-                }
-            }
-        }
-    }
-
-    private fun configureList(schedule: List<BaseSchedule>?) {
-        if (schedule.isNullOrEmpty()) {
-            viewBinding.tvWithoutItems.visibility = View.VISIBLE
-            viewBinding.schedulesActivityRvSchedules.visibility = GONE
-            return
-        }
-        viewBinding.tvWithoutItems.visibility = GONE
-        viewBinding.schedulesActivityRvSchedules.visibility = View.VISIBLE
-        schedule.let {
-            if (it.isNotEmpty()) {
-                adapter = SchedulesAdapter(requireCompatActivity(), schedule)
-                adapter.notifyDataSetChanged()
-                viewBinding.schedulesActivityRvSchedules.adapter = adapter
-                viewBinding.schedulesActivityRvSchedules.visibility = View.VISIBLE
-            } else {
-                viewBinding.schedulesActivityRvSchedules.visibility = View.INVISIBLE
-            }
-        }
+        configureNavigationListener()
     }
 
     override fun onInitDataBinding() {
         viewBinding.viewModel = viewModel
+        viewBinding.hasSchedule = true
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun configureShowingData(schedule: List<BaseSchedule>?) {
+        viewBinding.hasSchedule = !schedule.isNullOrEmpty()
+
+        schedule?.let {
+            adapter = SchedulesAdapter(requireCompatActivity(), schedule)
+            viewBinding.schedulesActivityRvSchedules.adapter = adapter
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun configureNavigationListener() {
+        viewBinding.schedulesBottomNavigation.setOnItemSelectedListener { menuItem ->
+            val mSchedule: List<BaseSchedule>? = viewModel.listMap[menuItem.itemId]
+            configureShowingData(mSchedule)
+            return@setOnItemSelectedListener true
+        }
     }
 
 }
