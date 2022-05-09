@@ -14,11 +14,11 @@ interface AppDao {
     suspend fun insertLines(lines: List<BusLine>)
 
     @Query("SELECT * FROM BusLine")
-    suspend fun getLines(): List<BusLine>
+    suspend fun getLines(): List<BusLine>?
 
     @Insert(onConflict = REPLACE)
     suspend fun insertSchedule(scheduleResponse: LineSchedules)
 
     @Query("SELECT * FROM LineSchedules WHERE line_id in (:lineId)")
-    suspend fun getLineSchedule(lineId: Long): LineSchedules
+    suspend fun getLineSchedule(lineId: Long): LineSchedules?
 }

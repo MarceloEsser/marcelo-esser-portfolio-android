@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface SogalServiceDelegate {
-    suspend fun getSchedules(busLine: BusLine, shouldCreateCall: Boolean = true): Flow<Resource<LineSchedules>>
-    suspend fun getLines(shouldCreateCall: Boolean = true): Flow<Resource<List<BusLine>>>
+    fun getSchedules(busLine: BusLine, shouldCreateCall: Boolean = true): Flow<Resource<LineSchedules>>
+    fun getLines(shouldCreateCall: Boolean = true): Flow<Resource<List<BusLine>>>
 }
 
 class SogalService(
@@ -27,7 +27,7 @@ class SogalService(
 ) : SogalServiceDelegate {
     private val search_lines_action = "buscaLinhas"
 
-    override suspend fun getSchedules(
+    override fun getSchedules(
         busLine: BusLine,
         shouldCreateCall: Boolean
     ): Flow<Resource<LineSchedules>> {
@@ -51,7 +51,7 @@ class SogalService(
 
     }
 
-    override suspend fun getLines(shouldCreateCall: Boolean): Flow<Resource<List<BusLine>>> {
+    override fun getLines(shouldCreateCall: Boolean): Flow<Resource<List<BusLine>>> {
         return DataBoundResource(
             loadFromDatabase = { dao.getLines() },
             shouldCreateCall = { shouldCreateCall },

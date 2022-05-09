@@ -34,18 +34,22 @@ class LinesViewModel(
         //TODO: implement status - Loading
         viewModelScope.launch(dispatcher) {
             service.getLines().collect { resource ->
-                resource.data?.let { data ->
-                    when (resource.requestStatus) {
-                        Status.success -> {
+                when (resource.requestStatus) {
+                    Status.success -> {
+                        if (resource.data == null) {
+                            _error.postValue(resource.message ?: "")
+                        }
+                        resource.data?.let { data ->
                             _lines.postValue(data)
                             _allLines.postValue(data)
                         }
-                        Status.error -> _error.postValue(resource.message ?: "")
-                        else -> {
-                            _error.postValue(resource.message ?: "")
-                        }
+                    }
+                    Status.error -> _error.postValue(resource.message ?: "")
+                    else -> {
+                        _error.postValue(resource.message ?: "")
                     }
                 }
+
             }
         }
     }
@@ -55,8 +59,8 @@ class LinesViewModel(
 
         val linesToFilter = _allLines.value
         val filter: List<BusLine>? = linesToFilter?.filter {
-            it.name.lowercase(Locale.getDefault()).contains(text)
-                    || it.code.lowercase(Locale.getDefault()).contains(text)
+            it.name.lowercase().contains(text.lowercase())
+                    || it.code.lowercase().contains(text)
         }
         _lines.value = filter ?: listOf()
     }
