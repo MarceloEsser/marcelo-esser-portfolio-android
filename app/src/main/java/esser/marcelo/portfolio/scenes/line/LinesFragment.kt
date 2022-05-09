@@ -1,6 +1,9 @@
 package esser.marcelo.portfolio.scenes.line
 
+import android.animation.ValueAnimator
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -17,57 +20,76 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LinesFragment : BaseFragment<LinesFragmentBinding>(
     R.layout.lines_fragment
 ) {
+
     private val viewModel: LinesViewModel by viewModel()
     private var bottomSheetBehavior: BottomSheetBehavior<*>? = null
+
+    private val wayAdapter by lazy {
+        LineWaysAdapter(requireContext()) { lineWay ->
+            viewModel.line?.let {
+                it.way = lineWay
+                findNavController().navigate(
+                    LinesFragmentDirections.actionLinesFragmentToSchedulesFragment(it)
+                )
+            }
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.lines.observe(requireActivity()) {
-            linesAdapterConfig(it)
+            viewBinding.linesActivityRvLines.adapter = LinesAdapter(
+                it, requireContext(), lineClickEvent()
+            )
         }
+
         viewModel.error.observe(requireActivity()) {
             Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
         }
 
     }
 
-    private fun linesAdapterConfig(it: List<BusLine>) {
-        viewBinding.linesActivityRvLines.adapter = LinesAdapter(
-            it, requireContext(),
-            lineClickEvent()
-        )
-    }
-
-    private fun lineClickEvent() = { line: BusLine ->
+    private fun lineClickEvent(): (BusLine) -> Unit = { line: BusLine ->
         viewModel.line = line
 
         bottomSheetBehavior = BottomSheetBehavior.from<View>(viewBinding.bottomSheet)
 
         viewBinding.bottomSheetBg.visibility = VISIBLE
 
-        if (bottomSheetBehavior != null) {
-            configureBottomSheet(bottomSheetBehavior!!)
+        bottomSheetBehavior?.let { bottomSheet ->
+            configureBottomSheetCallback(bottomSheet)
 
-            viewBinding.rvWays.adapter = LineWaysAdapter(requireContext()) { lineWay ->
-                viewModel.line?.let {
-                    it.way = lineWay
-                    findNavController().navigate(
-                        LinesFragmentDirections.actionLinesFragmentToSchedulesFragment(it)
-                    )
-                }
-            }
-
-            bottomSheetBehavior?.peekHeight =
+            bottomSheet.peekHeight =
                 viewBinding.bottomSheet.height - viewBinding.bottomSheetContent.height + 100
         }
 
     }
 
-    private fun configureBottomSheet(bottomSheetBehavior: BottomSheetBehavior<*>) {
-        viewBinding.bottomSheetBg.setOnClickListener {
-            hideBottomSheet()
-        }
+    override fun onInitDataBinding() {
+        viewBinding.viewModel = viewModel
+        viewBinding.activityLinesEtSearch.addTextChangedListener(searchWatcher())
 
+        viewBinding.rvWays.adapter = wayAdapter
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideBottomSheet()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideBottomSheet()
+    }
+
+    fun hideBottomSheet() {
+        if (bottomSheetBehavior == null) return
+        bottomSheetBehavior?.peekHeight = 0
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
+    private fun configureBottomSheetCallback(bottomSheetBehavior: BottomSheetBehavior<*>) {
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -86,19 +108,43 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    private fun hideBottomSheet() {
-        if (bottomSheetBehavior == null) return
-        bottomSheetBehavior?.peekHeight = 0
-        viewBinding.bottomSheetBg.visibility = View.GONE
-        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+
+    private fun searchWatcher() = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            viewModel.filterBy(
+                viewBinding.activityLinesEtSearch.text.toString()
+            )
+            searchAnimationControl()
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+        }
+
     }
 
-    override fun onPause() {
-        super.onPause()
-        hideBottomSheet()
-    }
+    private fun searchAnimationControl() {
+        if (viewBinding.activityLinesEtSearch.text.isNotEmpty() && viewBinding.lavCancelSearchAction.progress == 0f) {
+            val animate = ValueAnimator.ofFloat(0f, 0.5f)
 
-    override fun onInitDataBinding() {
-        viewBinding.viewModel = viewModel
+            animate.addUpdateListener {
+                viewBinding.lavCancelSearchAction.progress = it.animatedValue as Float
+            }
+
+            animate.duration = 700
+            animate.start()
+        } else if (viewBinding.activityLinesEtSearch.text.isNullOrEmpty() && viewBinding.lavCancelSearchAction.progress == 0.5f) {
+            val animate = ValueAnimator.ofFloat(0.5f, 0f)
+
+            animate.addUpdateListener {
+                viewBinding.lavCancelSearchAction.progress = it.animatedValue as Float
+            }
+            animate.duration = 500
+            animate.start()
+        }
     }
 }

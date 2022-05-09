@@ -15,6 +15,6 @@
             app:nullable="true"
             android:defaultValue="@null"
             android:name="line"
-            app:argType="esser.marcelo.portfolio.core.model.busLine.BusLine" />
+            app:argType="esser.marcelo.portfolio.core.model.BusLine" />
     </fragment>
 </navigation>

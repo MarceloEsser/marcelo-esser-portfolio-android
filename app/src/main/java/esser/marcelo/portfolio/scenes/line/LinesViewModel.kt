@@ -9,6 +9,7 @@ import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class LinesViewModel(
@@ -30,6 +31,7 @@ class LinesViewModel(
     var line: BusLine? = null
 
     private fun loadLines() {
+        //TODO: implement status - Loading
         viewModelScope.launch(dispatcher) {
             service.getLines().collect { resource ->
                 resource.data?.let { data ->
@@ -46,5 +48,16 @@ class LinesViewModel(
                 }
             }
         }
+    }
+
+    fun filterBy(text: String) {
+        if (_allLines.value.isNullOrEmpty()) return
+
+        val linesToFilter = _allLines.value
+        val filter: List<BusLine>? = linesToFilter?.filter {
+            it.name.lowercase(Locale.getDefault()).contains(text)
+                    || it.code.lowercase(Locale.getDefault()).contains(text)
+        }
+        _lines.value = filter ?: listOf()
     }
 }

@@ -19,7 +19,7 @@
             <argument
                 android:name="line"
                 android:defaultValue="@null"
-                app:argType="esser.marcelo.portfolio.core.model.busLine.BusLine"
+                app:argType="esser.marcelo.portfolio.core.model.BusLine"
                 app:nullable="true" />
         </action>
     </fragment>

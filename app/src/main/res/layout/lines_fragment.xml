@@ -6,6 +6,18 @@
         <variable
             name="viewModel"
             type="esser.marcelo.portfolio.scenes.line.LinesViewModel" />
+
+        <variable
+            name="fragment"
+            type="esser.marcelo.portfolio.scenes.line.LinesFragment" />
+
+        <variable
+            name="bottomSheetPeekHeight"
+            type="int" />
+
+        <variable
+            name="bottomSheetState"
+            type="int" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -191,8 +203,9 @@
                 android:id="@+id/bottom_sheet_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:onClick="@{() -> fragment.hideBottomSheet()}"
                 android:background="@color/transparentBlack"
-                android:visibility="gone" />
+                android:visibility="@{bottomSheetState != 4}" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/bottomSheet"

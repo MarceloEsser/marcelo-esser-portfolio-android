@@ -34,6 +34,8 @@ class SchedulesViewModel(
         get() = _error
 
     private fun loadSchedules() {
+        //TODO: implement status - Loading
+
         if (line == null) {
             _error.postValue("linha não pode estar nula")
             return
