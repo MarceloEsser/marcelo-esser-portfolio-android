@@ -7,6 +7,14 @@ import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
 import esser.marcelo.portfolio.core.helper.Converters
 
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
+
 @Entity
 class LineSchedules(
     @PrimaryKey(autoGenerate = true)

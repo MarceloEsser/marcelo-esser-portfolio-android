@@ -13,7 +13,7 @@ import esser.marcelo.portfolio.schedules.databinding.RowScheduleBinding
  * @author marcelo.v.esser@gmail.com
  *
  * @location Rio Grande do Sul, Brazil
- * @since 31/09/20
+ * @since 10/05/22
  */
 
 class SchedulesAdapter(

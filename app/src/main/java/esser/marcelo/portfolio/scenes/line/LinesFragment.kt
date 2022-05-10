@@ -17,6 +17,14 @@ import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.databinding.LinesFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
+
 class LinesFragment : BaseFragment<LinesFragmentBinding>(
     R.layout.lines_fragment
 ) {

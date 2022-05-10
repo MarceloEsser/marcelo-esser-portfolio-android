@@ -14,6 +14,14 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
+
 class SchedulesViewModel(
     private val service: SogalServiceDelegate,
     private val dispatcher: CoroutineDispatcher

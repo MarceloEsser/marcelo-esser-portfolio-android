@@ -16,6 +16,14 @@ import esser.marcelo.portfolio.schedules.adapter.SchedulesAdapter
 import esser.marcelo.portfolio.schedules.databinding.SchedulesFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
+
 class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedules_fragment) {
     private val viewModel: SchedulesViewModel by viewModel()
     private val args: SchedulesFragmentArgs by navArgs()

@@ -8,6 +8,14 @@ import esser.marcelo.portfolio.commons.base.BaseViewHolder
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.databinding.RowLineBinding
 
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
+
 class LinesAdapter(
     private val lines: List<BusLine>,
     private val context: Context,

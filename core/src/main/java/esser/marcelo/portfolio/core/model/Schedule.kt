@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
  * @author marcelo.v.esser@gmail.com
  *
  * @location Rio Grande do Sul, Brazil
- * @since 31/08/20
+ * @since 10/05/22
  */
 
 open class Schedule(

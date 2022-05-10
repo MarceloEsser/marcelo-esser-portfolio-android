@@ -6,6 +6,13 @@ import com.google.gson.reflect.TypeToken
 import esser.marcelo.portfolio.core.model.Schedule
 import java.lang.reflect.Type
 
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
 
 class Converters {
     @TypeConverter

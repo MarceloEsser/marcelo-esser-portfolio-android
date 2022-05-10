@@ -1,7 +1,12 @@
 package esser.marcelo.portfolio.core.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
 
 class LineWay(
     val description: String,

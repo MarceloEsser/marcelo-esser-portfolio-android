@@ -8,6 +8,14 @@ import esser.marcelo.portfolio.commons.base.BaseViewHolder
 import esser.marcelo.portfolio.core.model.LineWay
 import esser.marcelo.portfolio.databinding.RowLineWayBinding
 
+/**
+ * @author Marcelo Esser
+ * @author marcelo.v.esser@gmail.com
+ *
+ * @location Rio Grande do Sul, Brazil
+ * @since 10/05/22
+ */
+
 class LineWaysAdapter(
     private val context: Context,
     private val clickEvent: (lineWay: LineWay) -> Unit,
