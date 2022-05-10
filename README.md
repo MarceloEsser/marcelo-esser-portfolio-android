@@ -11,7 +11,7 @@ O projeto foi construído seguindo algumas recomendações e alguns padrões.
 Modularizado para melhorar a desacoplação de código e/ou features inteiras, com single activity architeture e com guia de arquitetura recomendada pelo a.developers.
 O Projeto contém também offline first, evitando loaders desnecessários e aumentando o desempenho da aplicação. Foi feito também para se adaptar bem ao dark mode, muito utilziado pelos usuários.
 
-## Sobre os módulos:
+## Sobre a arquitetura:
 
 ### App
 Módulo principal do app, onde eu mantenho a sua base, como o Application, a MainActivity e a principal/tela inicial. Contém também o módulo principal de injeção de dependencias com Koin.
