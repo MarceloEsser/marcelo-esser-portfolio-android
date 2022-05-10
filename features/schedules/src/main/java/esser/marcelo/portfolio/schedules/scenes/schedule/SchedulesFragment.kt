@@ -58,7 +58,7 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
         viewBinding.hasSchedule = !schedule.isNullOrEmpty()
 
         schedule?.let {
-            adapter = SchedulesAdapter(requireCompatActivity(), schedule)
+            adapter = SchedulesAdapter(requireCompatActivity(), it)
             viewBinding.schedulesActivityRvSchedules.adapter = adapter
             adapter.notifyDataSetChanged()
         }

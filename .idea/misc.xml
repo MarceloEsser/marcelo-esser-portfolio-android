@@ -23,8 +23,10 @@
         <entry key="commons/src/main/res/drawable/ripple_lines.xml" value="0.1" />
         <entry key="commons/src/main/res/layout/dialog_loader.xml" value="0.15462962962962962" />
         <entry key="commons/src/main/res/layout/lines_fragment.xml" value="0.2776268115942029" />
+        <entry key="features/schedules/src/main/res/drawable-ldpi/dark_ripple_lines.xml" value="0.1145" />
         <entry key="features/schedules/src/main/res/drawable-ldpi/light_to_dark_blue_green_gradient.xml" value="0.115" />
         <entry key="features/schedules/src/main/res/drawable/ic_filter.xml" value="0.115" />
+        <entry key="features/schedules/src/main/res/drawable/light_to_dark_blue_green_gradient.xml" value="0.1145" />
         <entry key="features/schedules/src/main/res/drawable/selector_lines_bottom_navigation.xml" value="0.115" />
         <entry key="features/schedules/src/main/res/layout/row_schedule.xml" value="0.1574074074074074" />
         <entry key="features/schedules/src/main/res/layout/schedules_fragment.xml" value="0.1" />
