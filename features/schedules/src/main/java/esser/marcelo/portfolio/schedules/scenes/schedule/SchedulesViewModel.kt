@@ -33,34 +33,36 @@ class SchedulesViewModel(
     val error: LiveData<String>
         get() = _error
 
-    private fun loadSchedules() {
-        //TODO: implement status - Loading
+    private val _status = MutableLiveData<Status>()
+    val status: LiveData<Status>
+        get() = _status
 
+    private fun loadSchedules() {
         if (line == null) {
             _error.postValue("you need a line to get the schedules")
             return
         }
+
         line?.let {
             viewModelScope.launch(dispatcher) {
                 service.getSchedules(it).collect { resource ->
-                    when (resource.requestStatus) {
-                        Status.success -> {
-                            if (resource.data == null)
-                                _error.postValue(resource.message ?: "")
+                    _status.postValue(resource.requestStatus)
 
-                            resource.data?.let { data ->
-                                listMap = mapOf(
-                                    R.id.action_workingdays to data.workingDays,
-                                    R.id.action_saturday to data.saturdays,
-                                    R.id.action_sunday to data.sundays,
-                                )
-                                _schedule.postValue(data)
-                            }
-                        }
-                        Status.error -> _error.postValue(resource.message ?: "")
-                        else -> {
+                    if (resource.requestStatus == Status.success) {
+                        if (resource.data == null)
                             _error.postValue(resource.message ?: "")
+
+                        resource.data?.let { data ->
+                            listMap = mapOf(
+                                R.id.action_workingdays to data.workingDays,
+                                R.id.action_saturday to data.saturdays,
+                                R.id.action_sunday to data.sundays,
+                            )
+                            _schedule.postValue(data)
                         }
+                    }
+                    if (resource.requestStatus == Status.error) {
+                        _error.postValue(resource.message ?: "")
                     }
                 }
             }

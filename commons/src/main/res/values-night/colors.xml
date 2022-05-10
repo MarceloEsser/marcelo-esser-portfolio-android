@@ -290,9 +290,11 @@
     <color name="secondaryColor">#4a148c</color>
     <color name="secondaryLightColor">#7c43bd</color>
     <color name="secondaryDarkColor">#12005e</color>
-    <color name="primaryTextColor">#ffffff</color>
+    <color name="title_text_color">@color/grey200</color>
+    <color name="primaryTextColor">@color/grey300</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="backgroundColor">@color/grey800</color>
     <color name="contrastColor">@color/grey50</color>
-
+    <color name="ripple_line_color">@color/grey500</color>
+    <color name="ripple_line_secondary_color">@color/grey700</color>
 </resources>

@@ -1,5 +1,6 @@
 package esser.marcelo.portfolio.commons.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,8 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
+import com.google.android.material.snackbar.Snackbar
+import esser.marcelo.portfolio.commons.base.widgets.LoaderDialog
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,6 +34,8 @@ abstract class BaseFragment<B : ViewDataBinding>(
     private val layoutId: Int
 ) : Fragment() {
 
+    private val loader: LoaderDialog = LoaderDialog()
+    private var isShowingLoader = false
     lateinit var viewBinding: B
 
     override fun onCreateView(
@@ -55,6 +60,25 @@ abstract class BaseFragment<B : ViewDataBinding>(
             return activity
         } else {
             throw TypeCastException("Main activity should extend from 'AppCompatActivity'")
+        }
+    }
+
+    fun showSnackBar(message: String) {
+        Snackbar.make(
+            requireCompatActivity().findViewById(android.R.id.content), message,
+            Snackbar.LENGTH_SHORT
+        ).setBackgroundTint(Color.BLACK).setTextColor(Color.WHITE).show()
+    }
+
+    fun showLoader() {
+        if (!loader.isAdded) {
+            loader.show(requireCompatActivity().supportFragmentManager, "loaderTag")
+        }
+    }
+
+    fun hideLoader() {
+        if (loader.isAdded) {
+            loader.dismiss()
         }
     }
 

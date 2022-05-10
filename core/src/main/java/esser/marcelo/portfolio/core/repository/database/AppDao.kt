@@ -14,7 +14,7 @@ interface AppDao {
     suspend fun insertLines(lines: List<BusLine>)
 
     @Query("SELECT * FROM BusLine")
-    suspend fun getLines(): List<BusLine>?
+    suspend fun getLines(): List<BusLine>
 
     @Insert(onConflict = REPLACE)
     suspend fun insertSchedule(scheduleResponse: LineSchedules)

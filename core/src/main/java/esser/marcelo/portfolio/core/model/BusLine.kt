@@ -20,17 +20,17 @@ import java.io.Serializable
 class BusLine(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    @SerializedName("nomeLinha")
-    @Expose
-    @ColumnInfo(name = "name", defaultValue = "")
-    var name: String,
 
-    @SerializedName("linha")
+    @SerializedName("nome_master")
     @Expose
-    @ColumnInfo(name = "code", defaultValue = "")
-    var code: String,
+    @ColumnInfo(name = "name")
+    val name: String,
 
-    ) : Serializable {
+    @SerializedName("linhas_master")
+    @Expose
+    @ColumnInfo(name = "code")
+    val code: String,
+) : Serializable {
     @Ignore
     var way: LineWay? = null
 }

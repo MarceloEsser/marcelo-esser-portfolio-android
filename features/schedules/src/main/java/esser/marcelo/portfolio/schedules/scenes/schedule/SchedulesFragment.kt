@@ -5,8 +5,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import esser.marcelo.portfolio.commons.base.BaseFragment
+import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.schedules.R
 import esser.marcelo.portfolio.schedules.adapter.SchedulesAdapter
@@ -26,10 +28,18 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.schedule.observe(requireActivity()) { configureShowingData(it.workingDays) }
+        viewModel.schedule.observe(requireCompatActivity()) { configureShowingData(it.workingDays) }
 
         viewModel.error.observe(requireCompatActivity()) { message ->
-            Toast.makeText(requireCompatActivity(), message, Toast.LENGTH_LONG).show()
+            showSnackBar(message)
+        }
+
+        viewModel.status.observe(requireCompatActivity()) { status ->
+            if (status == Status.loading) {
+                showLoader()
+                return@observe
+            }
+            hideLoader()
         }
 
         configureNavigationListener()
@@ -37,6 +47,9 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
 
     override fun onInitDataBinding() {
         viewBinding.viewModel = viewModel
+        viewBinding.imgBtnClose.setOnClickListener {
+            requireCompatActivity().onBackPressed()
+        }
         viewBinding.hasSchedule = true
     }
 

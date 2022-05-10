@@ -27,10 +27,10 @@
         <item name="android:elevation">3dp</item>
     </style>
 
-    <style name="RowDefaultSpinnerStyle">
+    <style name="RowLineWayStyleText">
         <item name="android:fontFamily">@font/ubuntu_regular</item>
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/grey800</item>
+        <item name="android:textColor">@color/primaryTextColor</item>
     </style>
 
     <style name="IBActionStyle">

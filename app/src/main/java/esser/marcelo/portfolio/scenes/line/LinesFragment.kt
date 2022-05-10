@@ -13,6 +13,8 @@ import esser.marcelo.portfolio.R
 import esser.marcelo.portfolio.adapter.LineWaysAdapter
 import esser.marcelo.portfolio.adapter.LinesAdapter
 import esser.marcelo.portfolio.commons.base.BaseFragment
+import esser.marcelo.portfolio.commons.base.hideKeyboard
+import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.databinding.LinesFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,24 +39,33 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.lines.observe(requireActivity()) {
-            viewBinding.linesActivityRvLines.adapter = LinesAdapter(
-                it, requireContext(), lineClickEvent()
-            )
+            viewBinding.linesActivityRvLines.adapter =
+                LinesAdapter(it, requireContext()) { line: BusLine ->
+                    viewModel.line = line
+                    showLineWaysBottomSheet()
+                }
         }
 
-        viewModel.error.observe(requireActivity()) {
-            Toast.makeText(requireActivity(), it, Toast.LENGTH_LONG).show()
+        viewModel.error.observe(requireCompatActivity()) { message ->
+            showSnackBar(message)
+        }
+
+        viewModel.status.observe(requireCompatActivity()) { status ->
+            if (status == Status.loading) {
+                showLoader()
+                return@observe
+            }
+            hideLoader()
         }
 
     }
 
-    private fun lineClickEvent(): (BusLine) -> Unit = { line: BusLine ->
-        viewModel.line = line
-
+    private fun showLineWaysBottomSheet() {
         bottomSheetBehavior = BottomSheetBehavior.from<View>(viewBinding.bottomSheet)
 
-        viewBinding.bottomSheetBg.visibility = VISIBLE
+        viewBinding.isShowingBottomSheet = true
 
         bottomSheetBehavior?.let { bottomSheet ->
             configureBottomSheetCallback(bottomSheet)
@@ -62,13 +73,21 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
             bottomSheet.peekHeight =
                 viewBinding.bottomSheet.height - viewBinding.bottomSheetContent.height + 100
         }
-
     }
+
 
     override fun onInitDataBinding() {
         viewBinding.viewModel = viewModel
         viewBinding.activityLinesEtSearch.addTextChangedListener(searchWatcher())
-
+        viewBinding.bottomSheetBg.setOnClickListener {
+            hideBottomSheet()
+        }
+        viewBinding.lavCancelSearchAction.setOnClickListener {
+            if (viewBinding.activityLinesEtSearch.text.isNotEmpty()) {
+                viewBinding.activityLinesEtSearch.setText("")
+                requireCompatActivity().hideKeyboard()
+            }
+        }
         viewBinding.rvWays.adapter = wayAdapter
 
     }
@@ -86,6 +105,7 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
     fun hideBottomSheet() {
         if (bottomSheetBehavior == null) return
         bottomSheetBehavior?.peekHeight = 0
+        viewBinding.isShowingBottomSheet = false
         bottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
@@ -105,6 +125,7 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
             }
         })
 
+        viewBinding.isShowingBottomSheet = true
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
@@ -118,11 +139,11 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
+            searchAnimationControl()
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+            searchAnimationControl()
         }
 
     }
