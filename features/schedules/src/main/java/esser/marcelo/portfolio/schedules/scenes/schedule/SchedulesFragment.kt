@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import esser.marcelo.portfolio.commons.base.BaseFragment
 import esser.marcelo.portfolio.core.Status
+import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.schedules.R
 import esser.marcelo.portfolio.schedules.adapter.SchedulesAdapter
@@ -28,7 +29,7 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.schedule.observe(requireCompatActivity()) { configureShowingData(it.workingDays) }
+        viewModel.schedule.observe(requireCompatActivity(), schedulesObserver())
 
         viewModel.error.observe(requireCompatActivity()) { message ->
             showSnackBar(message)
@@ -44,6 +45,9 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
 
         configureNavigationListener()
     }
+
+    private fun schedulesObserver(): (t: LineSchedules) -> Unit =
+        { configureShowingData(it.workingDays) }
 
     override fun onInitDataBinding() {
         viewBinding.viewModel = viewModel
@@ -71,5 +75,4 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
             return@setOnItemSelectedListener true
         }
     }
-
 }

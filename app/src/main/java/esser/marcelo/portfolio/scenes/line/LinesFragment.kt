@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import esser.marcelo.portfolio.R
@@ -94,11 +92,6 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
 
     override fun onPause() {
         super.onPause()
-        hideBottomSheet()
-    }
-
-    override fun onResume() {
-        super.onResume()
         hideBottomSheet()
     }
 
