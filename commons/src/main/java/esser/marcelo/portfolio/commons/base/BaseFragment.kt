@@ -35,7 +35,6 @@ abstract class BaseFragment<B : ViewDataBinding>(
 ) : Fragment() {
 
     private val loader: LoaderDialog = LoaderDialog()
-    private var isShowingLoader = false
     lateinit var viewBinding: B
 
     override fun onCreateView(
