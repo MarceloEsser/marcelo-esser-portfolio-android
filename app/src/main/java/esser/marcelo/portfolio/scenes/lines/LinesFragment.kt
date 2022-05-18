@@ -59,7 +59,7 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
         }
 
         viewModel.status.observe(requireCompatActivity()) { status ->
-            if (status == Status.loading) {
+            if (status == Status.Loading) {
                 showLoader()
                 return@observe
             }

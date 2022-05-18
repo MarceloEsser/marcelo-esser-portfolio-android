@@ -6,6 +6,6 @@ import esser.marcelo.portfolio.core.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface ISogalService {
-    fun getSchedules(busLine: BusLine, shouldCreateCall: Boolean = true): Flow<Resource<LineSchedules>>
-    fun getLines(shouldCreateCall: Boolean = true): Flow<Resource<List<BusLine>>>
+    fun getSchedules(busLine: BusLine): Flow<Resource<LineSchedules>>
+    fun getLines(): Flow<Resource<List<BusLine>>>
 }

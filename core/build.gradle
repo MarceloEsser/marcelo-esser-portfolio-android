@@ -52,6 +52,8 @@ dependencies {
     implementation jsoup
 
     implementation coroutines_core
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation "io.insert-koin:koin-androidx-workmanager:3.1.2"
 
     implementation koin_android
     implementation koin_core
@@ -66,5 +68,7 @@ dependencies {
     testImplementation junit
     testImplementation core_test
     androidTestImplementation androidx_ext_junit
+
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.21"
 
 }

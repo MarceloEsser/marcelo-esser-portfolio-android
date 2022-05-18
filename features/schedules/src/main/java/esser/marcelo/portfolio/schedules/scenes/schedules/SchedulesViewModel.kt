@@ -53,9 +53,9 @@ class SchedulesViewModel(
         line?.let {
             viewModelScope.launch(dispatcher) {
                 service.getSchedules(it).collect { resource ->
-                    _status.postValue(resource.requestStatus)
+                    _status.postValue(resource.status)
 
-                    if (resource.requestStatus == Status.success) {
+                    if (resource.status == Status.Success) {
                         if (resource.data == null)
                             _error.postValue(resource.message ?: "")
 
@@ -68,7 +68,7 @@ class SchedulesViewModel(
                             _schedule.postValue(data)
                         }
                     }
-                    if (resource.requestStatus == Status.error) {
+                    if (resource.status == Status.Error) {
                         _error.postValue(resource.message ?: "")
                     }
                 }

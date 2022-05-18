@@ -51,6 +51,8 @@ dependencies {
     implementation coroutines_core
     implementation koin_android
     implementation koin_core
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+    implementation "io.insert-koin:koin-androidx-workmanager:3.1.2"
 
     androidTestImplementation androidx_ext_junit
 

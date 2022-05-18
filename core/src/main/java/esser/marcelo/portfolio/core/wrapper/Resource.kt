@@ -11,18 +11,18 @@ import esser.marcelo.portfolio.core.Status
  */
 
 data class Resource<T>(
-    val requestStatus: Status,
+    val status: Status,
     val data: T? = null,
     val message: String? = null
 ) {
     companion object {
 
-        fun <T> success(data: T?): Resource<T> = Resource(Status.success, data, null)
+        fun <T> success(data: T?): Resource<T> = Resource(Status.Success, data, null)
 
         fun <T> error(message: String?, data: T? = null): Resource<T> =
-            Resource(Status.error, data, message)
+            Resource(Status.Error, data, message)
 
-        fun <T> loading(data: T? = null): Resource<T> = Resource(Status.loading, data, null)
+        fun <T> loading(data: T? = null): Resource<T> = Resource(Status.Loading, data, null)
 
     }
 }

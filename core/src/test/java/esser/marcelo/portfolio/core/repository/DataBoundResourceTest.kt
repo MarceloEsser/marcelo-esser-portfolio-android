@@ -63,7 +63,7 @@ class DataBoundResourceTest : BaseUnitTest() {
 
             assert(response != null)
             response?.let { safetyResponse ->
-                assert(safetyResponse.requestStatus == Status.success)
+                assert(safetyResponse.status == Status.Success)
                 assert(safetyResponse.data != null)
             }
 
@@ -86,7 +86,7 @@ class DataBoundResourceTest : BaseUnitTest() {
 
             assert(response != null)
             response?.let { safetyResponse ->
-                assert(safetyResponse.requestStatus == Status.success)
+                assert(safetyResponse.status == Status.Success)
                 assert(safetyResponse.data != null)
             }
         }
@@ -105,7 +105,7 @@ class DataBoundResourceTest : BaseUnitTest() {
             }
 
             assert(response != null)
-            assert(response?.requestStatus == Status.success)
+            assert(response?.status == Status.Success)
 
             response?.data?.let {
                 coVerify { appDao.insertLines(it) }
@@ -125,7 +125,7 @@ class DataBoundResourceTest : BaseUnitTest() {
             }
 
             assert(response != null)
-            assert(response?.requestStatus == Status.error)
+            assert(response?.status == Status.Error)
             assert(response?.message == "Line way must not be null")
         }
     }
@@ -150,7 +150,7 @@ class DataBoundResourceTest : BaseUnitTest() {
 
             assert(response != null)
             response?.let { safetyResponse ->
-                assert(safetyResponse.requestStatus == Status.success)
+                assert(safetyResponse.status == Status.Success)
                 assert(safetyResponse.data != null)
             }
 
@@ -179,7 +179,7 @@ class DataBoundResourceTest : BaseUnitTest() {
 
             assert(response != null)
             response?.let { safetyResponse ->
-                assert(safetyResponse.requestStatus == Status.success)
+                assert(safetyResponse.status == Status.Success)
                 assert(safetyResponse.data != null)
             }
         }
@@ -208,7 +208,7 @@ class DataBoundResourceTest : BaseUnitTest() {
             }
 
             assert(response != null)
-            assert(response?.requestStatus == Status.success)
+            assert(response?.status == Status.Success)
 
             response?.data?.let {
                 it.lineId = line.id

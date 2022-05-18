@@ -2,6 +2,7 @@ package esser.marcelo.portfolio.di
 
 import esser.marcelo.portfolio.MainActivity
 import esser.marcelo.portfolio.core.di.coreModule
+import esser.marcelo.portfolio.core.di.workManager
 import esser.marcelo.portfolio.scenes.lines.LinesFragment
 import esser.marcelo.portfolio.scenes.lines.LinesViewModel
 import esser.marcelo.portfolio.schedules.scenes.schedules.SchedulesFragment
@@ -38,5 +39,6 @@ val appModule = listOf(
     coreModule,
     viewModelModule,
     mainActivityScope,
-    schedulesViewModel
+    schedulesViewModel,
+    workManager
 )

@@ -1,9 +1,12 @@
 package esser.marcelo.portfolio.core.repository.service
 
+import android.content.Context
+import androidx.work.Data
 import esser.marcelo.portfolio.core.DataBoundResource
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.repository.database.AppDao
+import esser.marcelo.portfolio.core.workManager.SchedulesWorker
 import esser.marcelo.portfolio.core.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -18,20 +21,27 @@ import kotlinx.coroutines.flow.Flow
 class SogalServiceImpl(
     private val _mApi: ISogalAPI,
     private val dao: AppDao,
-) : ISogalService {
+    context: Context
+) : ISogalService, BaseService(context = context) {
+
     private val search_lines_action = "buscaLinhas"
 
     override fun getSchedules(
         busLine: BusLine,
-        shouldCreateCall: Boolean
     ): Flow<Resource<LineSchedules>> {
         return DataBoundResource(
-            shouldCreateCall = { shouldCreateCall },
+            shouldFetch = { true },
             loadFromDatabase = {
                 dao.getLineSchedule(busLine.id)
             },
             createCall = {
                 if (busLine.way != null) {
+                    val data = Data.Builder()
+                    data.putAll(busLine.toMap())
+                    val tag =
+                        "${SchedulesWorker::class.java.name}_${busLine.code}_${busLine.way?.code}"
+                    canEnqueueOneTimeWorker(SchedulesWorker::class, data.build(), tag = tag)
+
                     _mApi.postSogalSchedules(busLine.way!!.code, busLine.code)
                 } else {
                     Resource.error(message = "Line way must not be null", null)
@@ -45,11 +55,12 @@ class SogalServiceImpl(
 
     }
 
-    override fun getLines(shouldCreateCall: Boolean): Flow<Resource<List<BusLine>>> {
+    override fun getLines(): Flow<Resource<List<BusLine>>> {
         return DataBoundResource(
             loadFromDatabase = { dao.getLines() },
-            shouldCreateCall = { shouldCreateCall },
-            createCall = { _mApi.postSogalLines(search_lines_action) },
+            createCall = {
+                _mApi.postSogalLines(search_lines_action)
+            },
             saveCallResult = { lines ->
                 dao.insertLines(lines)
             }

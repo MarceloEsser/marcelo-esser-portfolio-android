@@ -44,9 +44,9 @@ class LinesViewModel(
     private fun loadLines() {
         viewModelScope.launch(dispatcher) {
             service.getLines().collect { resource ->
-                _status.postValue(resource.requestStatus)
+                _status.postValue(resource.status)
 
-                if (resource.requestStatus == Status.success) {
+                if (resource.status == Status.Success) {
                     if (resource.data == null) {
                         _error.postValue(resource.message ?: "")
                     }
@@ -55,7 +55,7 @@ class LinesViewModel(
                         _allLines.postValue(data)
                     }
                 }
-                if (resource.requestStatus == Status.error) {
+                if (resource.status == Status.Error) {
                     _error.postValue(resource.message ?: "")
                 }
 

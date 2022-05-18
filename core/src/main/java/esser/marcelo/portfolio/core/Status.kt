@@ -9,7 +9,7 @@ package esser.marcelo.portfolio.core
  */
 
 enum class Status {
-    loading,
-    success,
-    error
+    Loading,
+    Success,
+    Error
 }
