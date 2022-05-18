@@ -7,10 +7,10 @@ import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineWay
 import esser.marcelo.portfolio.core.repository.database.AppDao
 import esser.marcelo.portfolio.core.repository.service.ISogalAPI
-import esser.marcelo.portfolio.core.repository.service.SogalService
-import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
+import esser.marcelo.portfolio.core.repository.service.SogalServiceImpl
+import esser.marcelo.portfolio.core.repository.service.ISogalService
 import esser.marcelo.portfolio.core.wrapper.Resource
-import esser.marcelo.portfolio.scenes.line.LinesViewModel
+import esser.marcelo.portfolio.scenes.lines.LinesViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -37,12 +37,12 @@ class LinesViewModelTest : BaseUnitTest() {
     lateinit var sogalApi: ISogalAPI
 
     lateinit var viewModel: LinesViewModel
-    lateinit var service: SogalServiceDelegate
+    lateinit var service: ISogalService
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        service = SogalService(dao = appDao, _mApi = sogalApi)
+        service = SogalServiceImpl(dao = appDao, _mApi = sogalApi)
         viewModel = LinesViewModel(service, coroutinesTestRule.testDispatchers)
     }
 

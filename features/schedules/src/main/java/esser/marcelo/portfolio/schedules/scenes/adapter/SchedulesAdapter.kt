@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.schedules.adapter
+package esser.marcelo.portfolio.schedules.scenes.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

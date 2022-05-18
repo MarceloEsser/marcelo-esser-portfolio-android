@@ -16,7 +16,7 @@ import retrofit2.Response
  * @since 07/05/22
  */
 
-class CallAdapterAdapt<R>(
+class ResourceCall<R>(
     private val call: Call<R>
 ) : Call<Resource<R>> {
 
@@ -24,14 +24,14 @@ class CallAdapterAdapt<R>(
         return call.enqueue(object : Callback<R> {
             override fun onResponse(call: Call<R>, response: Response<R>) {
                 callback.onResponse(
-                    this@CallAdapterAdapt,
+                    this@ResourceCall,
                     Response.success(ApiResult.create(response))
                 )
             }
 
             override fun onFailure(call: Call<R>, t: Throwable) {
                 callback.onResponse(
-                    this@CallAdapterAdapt,
+                    this@ResourceCall,
                     Response.success(ApiResult.create(t))
                 )
             }
@@ -44,7 +44,7 @@ class CallAdapterAdapt<R>(
     }
 
     override fun clone(): Call<Resource<R>> {
-        return CallAdapterAdapt(call)
+        return ResourceCall(call)
     }
 
     override fun isExecuted(): Boolean {

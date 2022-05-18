@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/lines_fragment"
-        android:name="esser.marcelo.portfolio.scenes.line.LinesFragment"
+        android:name="esser.marcelo.portfolio.scenes.lines.LinesFragment"
         android:label="@string/lines_fragment_label">
         <action
             android:id="@+id/action_lines_fragment_to_schedules_fragment"

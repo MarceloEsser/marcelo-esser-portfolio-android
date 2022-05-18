@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.scenes.line
+package esser.marcelo.portfolio.scenes.lines
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,8 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.Status
-import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
-import kotlinx.coroutines.flow.collect
+import esser.marcelo.portfolio.core.repository.service.ISogalService
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.coroutines.CoroutineContext
@@ -21,7 +20,7 @@ import kotlin.coroutines.CoroutineContext
  */
 
 class LinesViewModel(
-    private val service: SogalServiceDelegate,
+    private val service: ISogalService,
     private val dispatcher: CoroutineContext
 ) : ViewModel() {
 

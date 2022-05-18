@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.adapter
+package esser.marcelo.portfolio.scenes.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

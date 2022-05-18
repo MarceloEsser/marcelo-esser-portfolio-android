@@ -20,7 +20,7 @@ class CallAdapter<T>(
     override fun responseType(): Type = responseType
 
     override fun adapt(call: Call<T>): Call<Resource<T>> {
-        return CallAdapterAdapt(call)
+        return ResourceCall(call)
     }
 
 }

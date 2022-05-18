@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.schedules.scenes.schedule
+package esser.marcelo.portfolio.schedules.scenes.schedules
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,10 +8,9 @@ import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.core.model.LineSchedules
-import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
+import esser.marcelo.portfolio.core.repository.service.ISogalService
 import esser.marcelo.portfolio.schedules.R
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -23,7 +22,7 @@ import kotlinx.coroutines.launch
  */
 
 class SchedulesViewModel(
-    private val service: SogalServiceDelegate,
+    private val service: ISogalService,
     private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 

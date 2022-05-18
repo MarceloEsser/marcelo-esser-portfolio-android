@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="esser.marcelo.portfolio.scenes.line.LinesViewModel" />
+            type="esser.marcelo.portfolio.scenes.lines.LinesViewModel" />
 
         <variable
             name="fragment"
-            type="esser.marcelo.portfolio.scenes.line.LinesFragment" />
+            type="esser.marcelo.portfolio.scenes.lines.LinesFragment" />
 
         <import type="android.view.View" />
 
@@ -23,7 +23,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".scenes.line.LinesFragment">
+        tools:context=".scenes.lines.LinesFragment">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/coordinator"

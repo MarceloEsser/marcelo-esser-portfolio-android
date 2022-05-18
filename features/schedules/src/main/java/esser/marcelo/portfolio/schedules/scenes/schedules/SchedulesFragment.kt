@@ -1,18 +1,16 @@
-package esser.marcelo.portfolio.schedules.scenes.schedule
+package esser.marcelo.portfolio.schedules.scenes.schedules
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import esser.marcelo.portfolio.commons.base.BaseFragment
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.schedules.R
-import esser.marcelo.portfolio.schedules.adapter.SchedulesAdapter
+import esser.marcelo.portfolio.schedules.scenes.adapter.SchedulesAdapter
 import esser.marcelo.portfolio.schedules.databinding.SchedulesFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

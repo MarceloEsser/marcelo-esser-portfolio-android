@@ -8,12 +8,12 @@ import esser.marcelo.portfolio.core.model.LineWay
 import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.core.repository.database.AppDao
 import esser.marcelo.portfolio.core.repository.service.ISogalAPI
-import esser.marcelo.portfolio.core.repository.service.SogalService
-import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
+import esser.marcelo.portfolio.core.repository.service.SogalServiceImpl
+import esser.marcelo.portfolio.core.repository.service.ISogalService
 import esser.marcelo.portfolio.core.wrapper.Resource
 import esser.marcelo.portfolio.schedules.BaseUnitTest
 import esser.marcelo.portfolio.schedules.R
-import esser.marcelo.portfolio.schedules.scenes.schedule.SchedulesViewModel
+import esser.marcelo.portfolio.schedules.scenes.schedules.SchedulesViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -40,7 +40,7 @@ class SchedulesViewModelTest : BaseUnitTest() {
     lateinit var sogalApi: ISogalAPI
 
     lateinit var viewModel: SchedulesViewModel
-    lateinit var service: SogalServiceDelegate
+    lateinit var service: ISogalService
 
     val nothing = null
     val mockList by lazy {
@@ -69,7 +69,7 @@ class SchedulesViewModelTest : BaseUnitTest() {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        service = SogalService(dao = appDao, _mApi = sogalApi)
+        service = SogalServiceImpl(dao = appDao, _mApi = sogalApi)
         viewModel = SchedulesViewModel(service, coroutinesTestRule.testDispatchers)
         val line = BusLine(0, "lineName", "lineCode")
         line.way = LineWay("wayDescription", "wayCode")

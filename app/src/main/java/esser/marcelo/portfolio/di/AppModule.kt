@@ -2,9 +2,9 @@ package esser.marcelo.portfolio.di
 
 import esser.marcelo.portfolio.MainActivity
 import esser.marcelo.portfolio.core.di.coreModule
-import esser.marcelo.portfolio.scenes.line.LinesFragment
-import esser.marcelo.portfolio.scenes.line.LinesViewModel
-import esser.marcelo.portfolio.schedules.scenes.schedule.SchedulesFragment
+import esser.marcelo.portfolio.scenes.lines.LinesFragment
+import esser.marcelo.portfolio.scenes.lines.LinesViewModel
+import esser.marcelo.portfolio.schedules.scenes.schedules.SchedulesFragment
 import esser.marcelo.portfolio.schedules.di.schedulesViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.fragment.dsl.fragment

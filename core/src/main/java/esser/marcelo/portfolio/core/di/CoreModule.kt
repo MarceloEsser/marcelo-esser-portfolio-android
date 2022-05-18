@@ -4,10 +4,9 @@ import androidx.room.Room
 import esser.marcelo.portfolio.core.repository.service.ISogalAPI
 import esser.marcelo.portfolio.core.NetworkHandler
 import esser.marcelo.portfolio.core.callAdapter.CallAdapterFactory
-import esser.marcelo.portfolio.core.helper.Converters
 import esser.marcelo.portfolio.core.repository.database.AppDatabase
-import esser.marcelo.portfolio.core.repository.service.SogalService
-import esser.marcelo.portfolio.core.repository.service.SogalServiceDelegate
+import esser.marcelo.portfolio.core.repository.service.SogalServiceImpl
+import esser.marcelo.portfolio.core.repository.service.ISogalService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import org.koin.dsl.module
@@ -28,7 +27,7 @@ val coreModule = module {
     single { get<AppDatabase>().getAppDao() }
 
     single { get<Retrofit>().create(ISogalAPI::class.java) }
-    single<SogalServiceDelegate> { SogalService(get(), get()) }
+    single<ISogalService> { SogalServiceImpl(get(), get()) }
 }
 
 private fun retrofit() = Retrofit.Builder()

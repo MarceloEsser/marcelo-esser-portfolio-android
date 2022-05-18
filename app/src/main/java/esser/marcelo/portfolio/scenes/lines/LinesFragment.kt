@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.scenes.line
+package esser.marcelo.portfolio.scenes.lines
 
 import android.animation.ValueAnimator
 import android.os.Bundle
@@ -8,8 +8,8 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import esser.marcelo.portfolio.R
-import esser.marcelo.portfolio.adapter.LineWaysAdapter
-import esser.marcelo.portfolio.adapter.LinesAdapter
+import esser.marcelo.portfolio.scenes.adapter.LineWaysAdapter
+import esser.marcelo.portfolio.scenes.adapter.LinesAdapter
 import esser.marcelo.portfolio.commons.base.BaseFragment
 import esser.marcelo.portfolio.commons.base.hideKeyboard
 import esser.marcelo.portfolio.core.Status

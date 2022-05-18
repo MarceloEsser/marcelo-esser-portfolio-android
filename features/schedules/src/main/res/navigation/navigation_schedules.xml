@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/schedules_fragment"
-        android:name="esser.marcelo.portfolio.schedules.scenes.schedule.SchedulesFragment"
+        android:name="esser.marcelo.portfolio.schedules.scenes.schedules.SchedulesFragment"
         android:label="Horarios">
         <argument
             app:nullable="true"
