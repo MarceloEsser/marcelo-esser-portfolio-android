@@ -8,7 +8,7 @@ import esser.marcelo.portfolio.core.callAdapter.CallAdapterFactory
 import esser.marcelo.portfolio.core.repository.database.AppDatabase
 import esser.marcelo.portfolio.core.repository.service.SogalServiceImpl
 import esser.marcelo.portfolio.core.repository.service.ISogalService
-import esser.marcelo.portfolio.core.workManager.factory.SogalWorkeFactory
+import esser.marcelo.portfolio.core.workManager.factory.SogalWorkerFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import org.koin.dsl.module
@@ -34,7 +34,7 @@ val coreModule = module {
 }
 
 val workManager = module {
-    factory<WorkerFactory> { SogalWorkeFactory(get()) }
+    factory<WorkerFactory> { SogalWorkerFactory(get()) }
 }
 
 private fun retrofit() = Retrofit.Builder()

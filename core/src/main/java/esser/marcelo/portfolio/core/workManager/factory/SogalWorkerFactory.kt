@@ -7,7 +7,7 @@ import androidx.work.WorkerParameters
 import esser.marcelo.portfolio.core.repository.service.ISogalService
 import esser.marcelo.portfolio.core.workManager.SchedulesWorker
 
-class SogalWorkeFactory(private val service: ISogalService) : WorkerFactory() {
+class SogalWorkerFactory(private val service: ISogalService) : WorkerFactory() {
 
     override fun createWorker(
         appContext: Context,
