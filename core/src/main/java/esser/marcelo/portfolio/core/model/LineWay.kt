@@ -13,10 +13,13 @@ class LineWay(
     val code: String
 ) {
     companion object {
+        final val bcCode = "buscaHorarioLinhaBC"
+        final val cbCode = "buscaHorarioLinhaCB"
+
         fun availableWays(): List<LineWay> {
             return listOf(
-                LineWay("Centro Bairro - CB", "buscaHorarioLinhaCB"),
-                LineWay("Bairro Centro - BC", "buscaHorarioLinhaBC"),
+                LineWay("Centro Bairro - CB", cbCode),
+                LineWay("Bairro Centro - BC", bcCode),
             )
         }
     }

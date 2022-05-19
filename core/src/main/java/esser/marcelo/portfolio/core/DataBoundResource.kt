@@ -24,6 +24,7 @@ open class DataBoundResource<ResultType>(
         return flow {
             emit(Resource.loading())
             fetchFromDatabase()
+
             fetchFromNetwork()
         }
     }

@@ -29,10 +29,14 @@ class SogalServiceImpl(
     override fun getSchedules(
         busLine: BusLine,
     ): Flow<Resource<LineSchedules>> {
+        var localLineSchedules: LineSchedules? = null
+
         return DataBoundResource(
             shouldFetch = { true },
             loadFromDatabase = {
-                dao.getLineSchedule(busLine.id)
+                localLineSchedules = dao.getLineSchedule(busLine.id)
+
+                return@DataBoundResource localLineSchedules
             },
             createCall = {
                 if (busLine.way != null) {
@@ -47,9 +51,19 @@ class SogalServiceImpl(
                     Resource.error(message = "Line way must not be null", null)
                 }
             },
-            saveCallResult = { scheduleResponse ->
-                scheduleResponse.lineId = busLine.id
-                dao.insertSchedule(scheduleResponse)
+            saveCallResult = { lineSchedulesResult ->
+                //TODO: isn't inserting new schedules
+                lineSchedulesResult.lineWayCode = busLine.way?.code ?: ""
+
+                localLineSchedules?.let {
+                    lineSchedulesResult.id = it.id
+                    it.replaceSchedules(lineSchedulesResult)
+                    dao.updateSchedule(it)
+                }
+
+                if (localLineSchedules == null)
+                    dao.insertSchedule(lineSchedulesResult)
+
             }
         ).build()
 
@@ -57,7 +71,10 @@ class SogalServiceImpl(
 
     override fun getLines(): Flow<Resource<List<BusLine>>> {
         return DataBoundResource(
-            loadFromDatabase = { dao.getLines() },
+            shouldFetch = { true },
+            loadFromDatabase = {
+                dao.getLines()
+            },
             createCall = {
                 _mApi.postSogalLines(search_lines_action)
             },

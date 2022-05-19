@@ -18,23 +18,75 @@ import esser.marcelo.portfolio.core.helper.Converters
 @Entity
 class LineSchedules(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    var id: Long,
 
     @ColumnInfo(name = "line_id")
     var lineId: Long,
 
-    @SerializedName(value = "horariosBCUteis", alternate = ["horariosCBUteis"])
-    @ColumnInfo(name = "schedule_working_days")
-    @TypeConverters(Converters::class)
-    var workingDays: List<Schedule>? = null,
+    @ColumnInfo(name = "line_way")
+    var lineWayCode: String,
 
-    @SerializedName(value = "horariosBCSabado", alternate = ["horariosCBSabado"])
-    @ColumnInfo(name = "schedule_saturdays")
+    @SerializedName(value = "horariosBCUteis")
+    @ColumnInfo(name = "schedule_working_days_bc")
     @TypeConverters(Converters::class)
-    var saturdays: List<Schedule>? = null,
+    var workingDaysBC: List<Schedule>? = null,
 
-    @SerializedName(value = "horariosBCDomingo", alternate = ["horariosCBDomingo"])
-    @ColumnInfo(name = "schedule_sundays")
+    @SerializedName(value = "horariosBCSabado")
+    @ColumnInfo(name = "schedule_saturdays_bc")
     @TypeConverters(Converters::class)
-    var sundays: List<Schedule>? = null,
-)
+    var saturdaysBC: List<Schedule>? = null,
+
+    @SerializedName(value = "horariosBCDomingo")
+    @ColumnInfo(name = "schedule_sundays_bc")
+    @TypeConverters(Converters::class)
+    var sundaysBC: List<Schedule>? = null,
+
+    //Working days schedules
+    @SerializedName(value = "horariosCBUteis")
+    @ColumnInfo(name = "schedule_working_days_cb")
+    @TypeConverters(Converters::class)
+    var workingDaysCB: List<Schedule>? = null,
+
+    @SerializedName(value = "horariosCBSabado")
+    @ColumnInfo(name = "schedule_saturdays_cb")
+    @TypeConverters(Converters::class)
+    var saturdaysCB: List<Schedule>? = null,
+
+    @SerializedName(value = "horariosCBDomingo")
+    @ColumnInfo(name = "schedule_sundays_cb")
+    @TypeConverters(Converters::class)
+    var sundaysCB: List<Schedule>? = null,
+) {
+    fun replaceSchedules(newData: LineSchedules?) {
+        if(newData == null) return
+        if (newData.lineWayCode == LineWay.bcCode) {
+            workingDaysBC = newData.workingDaysBC
+            saturdaysBC = newData.saturdaysBC
+            sundaysBC = newData.sundaysBC
+            return
+        }
+
+        workingDaysCB = newData.workingDaysCB
+        saturdaysCB = newData.saturdaysCB
+        sundaysCB = newData.sundaysCB
+    }
+
+    val workingDays: List<Schedule>?
+        get() {
+            return if (lineWayCode == LineWay.bcCode) workingDaysBC
+            else workingDaysCB
+        }
+
+    val saturdays: List<Schedule>?
+        get() {
+            return if (lineWayCode == LineWay.bcCode) saturdaysBC
+            else saturdaysCB
+        }
+
+    val sundays: List<Schedule>?
+        get() {
+            return if (lineWayCode == LineWay.bcCode) sundaysBC
+            else sundaysCB
+        }
+
+}

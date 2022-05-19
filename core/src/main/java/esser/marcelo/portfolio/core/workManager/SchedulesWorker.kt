@@ -21,7 +21,7 @@ class SchedulesWorker(
         val line = BusLine(
             name = map["name"].toString(),
             code = map["code"].toString(),
-            id = -1,
+            id = map["id"].toString().toLong(),
         )
 
         line.way = LineWay.availableWays().find {

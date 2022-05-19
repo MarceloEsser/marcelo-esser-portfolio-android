@@ -1,9 +1,7 @@
 package esser.marcelo.portfolio.core.repository.database
 
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineSchedules
 
@@ -26,6 +24,9 @@ interface AppDao {
 
     @Insert(onConflict = REPLACE)
     suspend fun insertSchedule(scheduleResponse: LineSchedules)
+
+    @Update
+    suspend fun updateSchedule(scheduleResponse: LineSchedules)
 
     @Query("SELECT * FROM LineSchedules WHERE line_id in (:lineId)")
     suspend fun getLineSchedule(lineId: Long): LineSchedules?
