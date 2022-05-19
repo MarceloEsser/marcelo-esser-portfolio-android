@@ -8,7 +8,9 @@ import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.repository.database.AppDao
 import esser.marcelo.portfolio.core.workManager.SchedulesWorker
 import esser.marcelo.portfolio.core.wrapper.Resource
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import java.lang.Exception
 
 /**
  * @author Marcelo Esser
@@ -24,7 +26,7 @@ class SogalServiceImpl(
     context: Context
 ) : ISogalService, BaseService(context = context) {
 
-    private val search_lines_action = "buscaLinhas"
+    private val searchLinesAction = "buscaLinhas"
 
     override fun getSchedules(
         busLine: BusLine,
@@ -35,7 +37,7 @@ class SogalServiceImpl(
             shouldFetch = { true },
             loadFromDatabase = {
                 localLineSchedules = dao.getLineSchedule(busLine.id)
-
+                print("locallinelength ${localLineSchedules?.id}")
                 return@DataBoundResource localLineSchedules
             },
             createCall = {
@@ -44,7 +46,7 @@ class SogalServiceImpl(
                     data.putAll(busLine.toMap())
                     val tag =
                         "${SchedulesWorker::class.java.name}_${busLine.code}_${busLine.way?.code}"
-                    canEnqueueOneTimeWorker(SchedulesWorker::class, data.build(), tag = tag)
+//                    canEnqueueOneTimeWorker(SchedulesWorker::class, data.build(), tag = tag)
 
                     _mApi.postSogalSchedules(busLine.way!!.code, busLine.code)
                 } else {
@@ -58,11 +60,19 @@ class SogalServiceImpl(
                 localLineSchedules?.let {
                     lineSchedulesResult.id = it.id
                     it.replaceSchedules(lineSchedulesResult)
-                    dao.updateSchedule(it)
+                    try {
+                        dao.updateSchedule(it)
+                    } catch (e: Exception) {
+                        throw e
+                    }
                 }
 
                 if (localLineSchedules == null)
-                    dao.insertSchedule(lineSchedulesResult)
+                    try {
+                        dao.insertSchedule(lineSchedulesResult)
+                    } catch (e: Exception) {
+                        throw e
+                    }
 
             }
         ).build()
@@ -70,15 +80,22 @@ class SogalServiceImpl(
     }
 
     override fun getLines(): Flow<Resource<List<BusLine>>> {
+        var localLines: List<BusLine>? = null
         return DataBoundResource(
             shouldFetch = { true },
             loadFromDatabase = {
-                dao.getLines()
+                localLines = dao.getLines()
+                return@DataBoundResource localLines
             },
             createCall = {
-                _mApi.postSogalLines(search_lines_action)
+                _mApi.postSogalLines(searchLinesAction)
             },
             saveCallResult = { lines ->
+                localLines?.let {
+                    for (line in lines) {
+                        line.id = it.find { element -> line.code == element.code }?.id ?: 0
+                    }
+                }
                 dao.insertLines(lines)
             }
         ).build()

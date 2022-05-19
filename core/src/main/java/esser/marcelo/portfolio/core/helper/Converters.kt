@@ -16,8 +16,8 @@ import java.lang.reflect.Type
 
 class Converters {
     @TypeConverter
-    fun fromString(value: String?): List<Schedule>? {
-        val listType: Type = object : TypeToken<List<Schedule>?>() {}.type
+    fun fromString(value: String?): List<Schedule> {
+        val listType: Type = object : TypeToken<List<Schedule>>() {}.type
         return Gson().fromJson(value, listType)
     }
     @TypeConverter

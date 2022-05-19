@@ -24,8 +24,8 @@ open class DataBoundResource<ResultType>(
         return flow {
             emit(Resource.loading())
             fetchFromDatabase()
-
             fetchFromNetwork()
+
         }
     }
 
@@ -45,8 +45,10 @@ open class DataBoundResource<ResultType>(
             }
 
             if (shouldFetch.invoke()) {
-                fetchFromDatabase()
-                return
+                val value = loadFromDatabase.invoke()
+                value?.let {
+                    result.data = it
+                }
             }
 
             emit(Resource.success(result.data))

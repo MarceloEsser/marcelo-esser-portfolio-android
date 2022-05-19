@@ -12,7 +12,7 @@ import esser.marcelo.portfolio.core.Status
 
 data class Resource<T>(
     val status: Status,
-    val data: T? = null,
+    var data: T? = null,
     val message: String? = null
 ) {
     companion object {

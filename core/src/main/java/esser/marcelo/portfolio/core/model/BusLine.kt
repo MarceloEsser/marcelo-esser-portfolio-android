@@ -19,7 +19,7 @@ import java.io.Serializable
 @Entity
 class BusLine(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    var id: Long,
 
     @SerializedName("nome_master")
     @Expose

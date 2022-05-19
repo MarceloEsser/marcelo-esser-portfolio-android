@@ -16,32 +16,32 @@ sealed class BaseService(private val context: Context) {
         data: Data? = null,
         tag: String = worker.java.name
     ) {
-        if (needToSchedule()) {
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
+        if (!isNetworkAvailble()) {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
 
-        val work = OneTimeWorkRequest.Builder(worker.java)
-            .addTag(tag)
-            .setConstraints(constraints)
+            val work = OneTimeWorkRequest.Builder(worker.java)
+                .addTag(tag)
+                .setConstraints(constraints)
 
-        data?.let {
-            work.setInputData(it)
-        }
+            data?.let {
+                work.setInputData(it)
+            }
 
-        instance.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, work.build())
+            instance.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, work.build())
         }
     }
 
-    private fun needToSchedule(): Boolean {
+    fun isNetworkAvailble(): Boolean {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-        val nw = connectivityManager.activeNetwork ?: return true
-        val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return true
+        val nw = connectivityManager.activeNetwork ?: return false
+        val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
 
         return when {
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> false
-            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> false
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
             else -> true
         }
     }
