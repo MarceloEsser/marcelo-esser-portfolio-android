@@ -21,7 +21,7 @@ class Converters {
         return Gson().fromJson(value, listType)
     }
     @TypeConverter
-    fun fromArrayList(list: List<Schedule>?): String {
+    fun fromArrayList(list: List<Schedule>): String {
         val gson = Gson()
         return gson.toJson(list)
     }

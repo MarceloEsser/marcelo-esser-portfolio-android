@@ -72,7 +72,7 @@ class SchedulesViewModelTest : BaseUnitTest() {
         service = SogalServiceImpl(dao = appDao, _mApi = sogalApi)
         viewModel = SchedulesViewModel(service, coroutinesTestRule.testDispatchers)
         val line = BusLine(0, "lineName", "lineCode")
-        line.way = LineWay("wayDescription", "wayCode")
+        line.lineWay = LineWay("wayDescription", "wayCode")
         viewModel.line = line
     }
 

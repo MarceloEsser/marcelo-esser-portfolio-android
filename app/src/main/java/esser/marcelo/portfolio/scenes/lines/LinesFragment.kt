@@ -35,7 +35,10 @@ class LinesFragment : BaseFragment<LinesFragmentBinding>(
     private val wayAdapter by lazy {
         LineWaysAdapter(requireContext()) { lineWay ->
             viewModel.line?.let {
-                it.way = lineWay
+                it.lineWay = lineWay
+
+                viewModel.updateLine()
+
                 findNavController().navigate(
                     LinesFragmentDirections.actionLinesFragmentToSchedulesFragment(it)
                 )

@@ -50,7 +50,7 @@ class LinesViewModelTest : BaseUnitTest() {
     fun whenObserveLinesLiveData_ShouldFetchLines() {
         runBlocking(coroutinesTestRule.testDispatchers) {
             val line = BusLine(0, "lineName", "lineCode")
-            line.way = LineWay("wayDescription", "wayCode")
+            line.lineWay = LineWay("wayDescription", "wayCode")
             val lineList = listOf(line)
 
             coEvery { sogalApi.postSogalLines("buscaLinhas") } returns Resource.success(lineList)

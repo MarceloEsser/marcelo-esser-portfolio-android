@@ -2,7 +2,9 @@ package esser.marcelo.portfolio.core.model
 
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
-import esser.marcelo.portfolio.core.helper.Converters
+import esser.marcelo.busoclock.model.schedules.Saturday
+import esser.marcelo.busoclock.model.schedules.Sunday
+import esser.marcelo.busoclock.model.schedules.Workingday
 
 /**
  * @author Marcelo Esser
@@ -12,78 +14,28 @@ import esser.marcelo.portfolio.core.helper.Converters
  * @since 10/05/22
  */
 
-@Entity
-class LineSchedules(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long,
+data class LineSchedules(
 
-    @ColumnInfo(name = "line_id")
-    var lineId: Long,
+    @Embedded var line: BusLine? = null,
 
-    @ColumnInfo(name = "line_way")
-    var lineWayCode: String,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "lineId"
+    )
+    @SerializedName(value = "horariosBCUteis", alternate = ["horariosCBUteis"])
+    var workingDays: List<Workingday>? = null,
 
-    @SerializedName(value = "horariosBCUteis")
-    @ColumnInfo(name = "schedule_working_days_bc")
-    @TypeConverters(Converters::class)
-    var workingDaysBC: List<Schedule>? = null,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "lineId"
+    )
+    @SerializedName(value = "horariosBCSabado", alternate = ["horariosCBSabado"])
+    var saturdays: List<Saturday>? = null,
 
-    @SerializedName(value = "horariosBCSabado")
-    @ColumnInfo(name = "schedule_saturdays_bc")
-    @TypeConverters(Converters::class)
-    var saturdaysBC: List<Schedule>? = null,
-
-    @SerializedName(value = "horariosBCDomingo")
-    @ColumnInfo(name = "schedule_sundays_bc")
-    @TypeConverters(Converters::class)
-    var sundaysBC: List<Schedule>? = null,
-
-    //Working days schedules
-    @SerializedName(value = "horariosCBUteis")
-    @ColumnInfo(name = "schedule_working_days_cb")
-    @TypeConverters(Converters::class)
-    var workingDaysCB: List<Schedule>? = null,
-
-    @SerializedName(value = "horariosCBSabado")
-    @ColumnInfo(name = "schedule_saturdays_cb")
-    @TypeConverters(Converters::class)
-    var saturdaysCB: List<Schedule>? = null,
-
-    @SerializedName(value = "horariosCBDomingo")
-    @ColumnInfo(name = "schedule_sundays_cb")
-    @TypeConverters(Converters::class)
-    var sundaysCB: List<Schedule>? = null,
-) {
-    fun replaceSchedules(newData: LineSchedules?) {
-        if(newData == null) return
-        if (newData.lineWayCode == LineWay.bcCode) {
-            workingDaysBC = newData.workingDaysBC
-            saturdaysBC = newData.saturdaysBC
-            sundaysBC = newData.sundaysBC
-            return
-        }
-
-        workingDaysCB = newData.workingDaysCB
-        saturdaysCB = newData.saturdaysCB
-        sundaysCB = newData.sundaysCB
-    }
-
-    val workingDays: List<Schedule>?
-        get() {
-            return if (lineWayCode == LineWay.bcCode) workingDaysBC
-            else workingDaysCB
-        }
-
-    val saturdays: List<Schedule>?
-        get() {
-            return if (lineWayCode == LineWay.bcCode) saturdaysBC
-            else saturdaysCB
-        }
-
-    val sundays: List<Schedule>?
-        get() {
-            return if (lineWayCode == LineWay.bcCode) sundaysBC
-            else sundaysCB
-        }
-
-}
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "lineId"
+    )
+    @SerializedName(value = "horariosBCDomingo", alternate = ["horariosCBDomingo"])
+    var sundays: List<Sunday>? = null,
+)

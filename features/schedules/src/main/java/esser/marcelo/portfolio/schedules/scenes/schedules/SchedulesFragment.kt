@@ -5,10 +5,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
+import esser.marcelo.busoclock.model.schedules.BaseSchedule
 import esser.marcelo.portfolio.commons.base.BaseFragment
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.LineSchedules
-import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.schedules.R
 import esser.marcelo.portfolio.schedules.scenes.adapter.SchedulesAdapter
 import esser.marcelo.portfolio.schedules.databinding.SchedulesFragmentBinding
@@ -64,7 +64,7 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun configureShowingData(schedule: List<Schedule>?) {
+    private fun configureShowingData(schedule: List<BaseSchedule>?) {
         viewBinding.hasSchedule = !schedule.isNullOrEmpty()
 
         schedule?.let {
@@ -76,7 +76,7 @@ class SchedulesFragment : BaseFragment<SchedulesFragmentBinding>(R.layout.schedu
 
     private fun configureNavigationListener() {
         viewBinding.schedulesBottomNavigation.setOnItemSelectedListener { menuItem ->
-            val mSchedule: List<Schedule>? = viewModel.listMap[menuItem.itemId]
+            val mSchedule: List<BaseSchedule>? = viewModel.listMap[menuItem.itemId]
             configureShowingData(mSchedule)
             return@setOnItemSelectedListener true
         }

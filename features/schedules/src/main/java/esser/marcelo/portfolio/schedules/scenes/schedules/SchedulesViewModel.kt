@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import esser.marcelo.busoclock.model.schedules.BaseSchedule
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.Schedule
@@ -34,7 +35,7 @@ class SchedulesViewModel(
         return@lazy _schedule
     }
 
-    lateinit var listMap: Map<Int, List<Schedule>?>
+    lateinit var listMap: Map<Int, List<BaseSchedule>?>
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>

@@ -8,9 +8,7 @@ import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.repository.database.AppDao
 import esser.marcelo.portfolio.core.workManager.SchedulesWorker
 import esser.marcelo.portfolio.core.wrapper.Resource
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
-import java.lang.Exception
 
 /**
  * @author Marcelo Esser
@@ -31,52 +29,45 @@ class SogalServiceImpl(
     override fun getSchedules(
         busLine: BusLine,
     ): Flow<Resource<LineSchedules>> {
-        var localLineSchedules: LineSchedules? = null
+        var localLineSchedules: LineSchedules?
 
         return DataBoundResource(
             shouldFetch = { true },
             loadFromDatabase = {
-                localLineSchedules = dao.getLineSchedule(busLine.id)
-                print("locallinelength ${localLineSchedules?.id}")
+                localLineSchedules =
+                    dao.getLineBy(busLine.name, busLine.code, busLine.way ?: "")
                 return@DataBoundResource localLineSchedules
             },
             createCall = {
-                if (busLine.way != null) {
-                    val data = Data.Builder()
-                    data.putAll(busLine.toMap())
-                    val tag =
-                        "${SchedulesWorker::class.java.name}_${busLine.code}_${busLine.way?.code}"
-//                    canEnqueueOneTimeWorker(SchedulesWorker::class, data.build(), tag = tag)
+                val data = Data.Builder()
+                data.putAll(busLine.toMap())
+                val tag =
+                    "${SchedulesWorker::class.java.name}_${busLine.code}_${busLine.way}"
+                canEnqueueOneTimeWorker(SchedulesWorker::class, data.build(), tag = tag)
 
-                    _mApi.postSogalSchedules(busLine.way!!.code, busLine.code)
-                } else {
-                    Resource.error(message = "Line way must not be null", null)
-                }
+                _mApi.postSogalSchedules(busLine.way ?: "", busLine.code)
             },
             saveCallResult = { lineSchedulesResult ->
-                //TODO: isn't inserting new schedules
-                lineSchedulesResult.lineWayCode = busLine.way?.code ?: ""
+                lineSchedulesResult.line = busLine
 
-                localLineSchedules?.let {
-                    lineSchedulesResult.id = it.id
-                    it.replaceSchedules(lineSchedulesResult)
-                    try {
-                        dao.updateSchedule(it)
-                    } catch (e: Exception) {
-                        throw e
+                lineSchedulesResult.let { line ->
+                    line.workingDays?.let { workingDays ->
+                        workingDays.forEach { element -> element.workindayKey = line.line?.id }
+                        dao.insertWorkingDays(workingDays)
+                    }
+                    line.saturdays?.let { saturdays ->
+                        saturdays.forEach { element -> element.saturdayKey = line.line?.id }
+                        dao.insertSaturdays(saturdays)
+                    }
+                    line.sundays?.let { sundays ->
+                        sundays.forEach { element -> element.sundayKey = line.line?.id }
+                        dao.insertSundays(sundays)
                     }
                 }
 
-                if (localLineSchedules == null)
-                    try {
-                        dao.insertSchedule(lineSchedulesResult)
-                    } catch (e: Exception) {
-                        throw e
-                    }
-
+//                dao.insertSchedule(lineSchedulesResult)
             }
         ).build()
-
     }
 
     override fun getLines(): Flow<Resource<List<BusLine>>> {

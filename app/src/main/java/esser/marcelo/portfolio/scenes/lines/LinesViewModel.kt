@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.Status
+import esser.marcelo.portfolio.core.repository.database.AppDao
 import esser.marcelo.portfolio.core.repository.service.ISogalService
 import kotlinx.coroutines.launch
 import java.util.*
@@ -21,7 +22,8 @@ import kotlin.coroutines.CoroutineContext
 
 class LinesViewModel(
     private val service: ISogalService,
-    private val dispatcher: CoroutineContext
+    private val dispatcher: CoroutineContext,
+    private val dao: AppDao
 ) : ViewModel() {
 
     private val _allLines = MutableLiveData<List<BusLine>>()
@@ -72,5 +74,11 @@ class LinesViewModel(
                     || it.code.lowercase(Locale.getDefault()).contains(text)
         }
         _lines.value = filter ?: listOf()
+    }
+
+    fun updateLine() = viewModelScope.launch(dispatcher) {
+        line?.let {
+            dao.updateLine(it)
+        }
     }
 }

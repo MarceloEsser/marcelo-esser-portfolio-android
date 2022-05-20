@@ -22,9 +22,10 @@ class SchedulesWorker(
             name = map["name"].toString(),
             code = map["code"].toString(),
             id = map["id"].toString().toLong(),
+            way = map["way"].toString()
         )
 
-        line.way = LineWay.availableWays().find {
+        line.lineWay = LineWay.availableWays().find {
             it.code == map["way"]
         }
 

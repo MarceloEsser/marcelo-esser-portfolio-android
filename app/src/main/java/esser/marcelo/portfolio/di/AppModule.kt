@@ -30,7 +30,8 @@ val viewModelModule = module {
     viewModel {
         LinesViewModel(
             get(),
-            Dispatchers.IO
+            Dispatchers.IO,
+            get()
         )
     }
 }

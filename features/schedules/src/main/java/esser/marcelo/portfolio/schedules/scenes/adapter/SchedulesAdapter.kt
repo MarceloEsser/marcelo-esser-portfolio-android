@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import esser.marcelo.busoclock.model.schedules.BaseSchedule
 import esser.marcelo.portfolio.commons.base.BaseViewHolder
-import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.schedules.databinding.RowScheduleBinding
 
 /**
@@ -18,7 +18,7 @@ import esser.marcelo.portfolio.schedules.databinding.RowScheduleBinding
 
 class SchedulesAdapter(
     private val context: Context,
-    private val schedules: List<Schedule>
+    private val schedules: List<BaseSchedule>
 ) : RecyclerView.Adapter<SchedulesAdapter.SchedulesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): SchedulesViewHolder {
@@ -26,9 +26,7 @@ class SchedulesAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (!schedules.isNullOrEmpty())
-            return schedules.size
-        return 0
+        return schedules.size
     }
 
     override fun onBindViewHolder(viewHolder: SchedulesViewHolder, position: Int) {
@@ -47,7 +45,7 @@ class SchedulesAdapter(
         BaseViewHolder<RowScheduleBinding>(
             binding = RowScheduleBinding.inflate(inflater, parent, false)
         ) {
-        fun bind(schedule: Schedule) {
+        fun bind(schedule: BaseSchedule) {
             binding.hour = schedule.hour
             binding.isAccessible = schedule.isAccessible()
             binding.executePendingBindings()

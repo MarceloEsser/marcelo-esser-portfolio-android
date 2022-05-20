@@ -117,7 +117,7 @@ class DataBoundResourceTest : BaseUnitTest() {
     fun serviceDelegate_getSchedulesLineWay_ShouldNotBeNull() {
         runBlocking(coroutinesTestRule.testDispatchers) {
             val line = BusLine(1, "name", "code")
-            line.way = null
+            line.lineWay = null
 
             var response: Resource<LineSchedules>? = null
             sogalServiceDelegate.getSchedules(line).collect {
@@ -134,7 +134,7 @@ class DataBoundResourceTest : BaseUnitTest() {
     fun serviceDelegate_getSchedules_ShouldCallApi_And_Return_ResourceLineSchedules() {
         runBlocking(coroutinesTestRule.testDispatchers) {
             val line = BusLine(1, "lineName", "lineCode")
-            line.way = LineWay("wayDescription", "wayCode")
+            line.lineWay = LineWay("wayDescription", "wayCode")
 
             var response: Resource<LineSchedules>? = null
 
@@ -161,7 +161,7 @@ class DataBoundResourceTest : BaseUnitTest() {
     fun serviceDelegate_getSchedules_ShouldFetchFromDatabase_And_Return_LineSchedules() {
         runBlocking(coroutinesTestRule.testDispatchers) {
             val line = BusLine(1, "lineName", "lineCode")
-            line.way = LineWay("wayDescription", "wayCode")
+            line.lineWay = LineWay("wayDescription", "wayCode")
             var response: Resource<LineSchedules>? = null
 
             coEvery { appDao.getLineSchedule(line.id) } returns LineSchedules(
@@ -189,7 +189,7 @@ class DataBoundResourceTest : BaseUnitTest() {
     fun serviceDelegate_schedulesServiceFetch_ShouldInsertLineSchedules() {
         runBlocking(coroutinesTestRule.testDispatchers) {
             val line = BusLine(1, "lineName", "lineCode")
-            line.way = LineWay("wayDescription", "wayCode")
+            line.lineWay = LineWay("wayDescription", "wayCode")
 
             var response: Resource<LineSchedules>? = null
 

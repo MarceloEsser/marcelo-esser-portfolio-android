@@ -30,29 +30,24 @@ class BusLine(
     @Expose
     @ColumnInfo(name = "code")
     val code: String,
+
+    @ColumnInfo(name = "way")
+    var way: String?,
 ) : Serializable {
 
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "name" to name,
             "code" to code,
-            "way" to way?.code,
+            "way" to lineWay?.code,
             "id" to id
         )
     }
 
-    fun fromMap(map: Map<String, Any?>): BusLine {
-        val line = BusLine(
-            name = map["name"].toString(),
-            code = map["code"].toString(),
-            id = map["id"].toString().toLong(),
-        )
-        line.way = LineWay.availableWays().find {
-            it.code == code
-        }
-        return line
-    }
-
     @Ignore
-    var way: LineWay? = null
+    var lineWay: LineWay? = null
+        set(value) {
+            this.way = value?.code ?: ""
+            field = value
+        }
 }
