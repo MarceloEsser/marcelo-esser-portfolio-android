@@ -2,9 +2,9 @@ package esser.marcelo.portfolio.core.model
 
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
-import esser.marcelo.busoclock.model.schedules.Saturday
-import esser.marcelo.busoclock.model.schedules.Sunday
-import esser.marcelo.busoclock.model.schedules.Workingday
+import esser.marcelo.portfolio.core.model.schedules.cb.SaturdayCb
+import esser.marcelo.portfolio.core.model.schedules.cb.SundayCb
+import esser.marcelo.portfolio.core.model.schedules.cb.WorkingDayCb
 
 /**
  * @author Marcelo Esser
@@ -23,19 +23,19 @@ data class LineSchedules(
         entityColumn = "lineId"
     )
     @SerializedName(value = "horariosBCUteis", alternate = ["horariosCBUteis"])
-    var workingDays: List<Workingday>? = null,
+    var workingDays: List<WorkingDayCb>? = null,
 
     @Relation(
         parentColumn = "id",
         entityColumn = "lineId"
     )
     @SerializedName(value = "horariosBCSabado", alternate = ["horariosCBSabado"])
-    var saturdays: List<Saturday>? = null,
+    var saturdays: List<SaturdayCb>? = null,
 
     @Relation(
         parentColumn = "id",
         entityColumn = "lineId"
     )
     @SerializedName(value = "horariosBCDomingo", alternate = ["horariosCBDomingo"])
-    var sundays: List<Sunday>? = null,
+    var sundays: List<SundayCb>? = null,
 )

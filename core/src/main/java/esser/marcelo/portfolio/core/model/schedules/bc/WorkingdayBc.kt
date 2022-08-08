@@ -1,9 +1,9 @@
-package esser.marcelo.busoclock.model.schedules
+package esser.marcelo.portfolio.core.model.schedules.bc
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import esser.marcelo.busoclock.model.schedules.BaseSchedule
 
 /**
  * @author Marcelo Esser
@@ -14,11 +14,11 @@ import com.google.gson.annotations.SerializedName
  */
 
 @Entity
-data class Workingday(
-
+data class WorkingdayBc(
     @PrimaryKey(autoGenerate = true)
-    var workingdayId: Long? = null,
+    @ColumnInfo(name = "working_day_bc_id")
+    var id: Long? = null,
 
     @ColumnInfo(name = "lineId")
-    var workindayKey: Long? = null,
-):BaseSchedule()
+    var workingDayKey: Long? = null,
+) : BaseSchedule()

@@ -2,12 +2,11 @@ package esser.marcelo.portfolio.core.repository.database
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import esser.marcelo.busoclock.model.schedules.Saturday
-import esser.marcelo.busoclock.model.schedules.Sunday
-import esser.marcelo.busoclock.model.schedules.Workingday
+import esser.marcelo.portfolio.core.model.schedules.cb.SaturdayCb
+import esser.marcelo.portfolio.core.model.schedules.cb.SundayCb
+import esser.marcelo.portfolio.core.model.schedules.cb.WorkingDayCb
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineSchedules
-import kotlinx.coroutines.flow.Flow
 
 /**
  * @author Marcelo Esser
@@ -31,13 +30,13 @@ interface AppDao {
     suspend fun getLineBy(name: String, code: String, way: String): LineSchedules?
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertWorkingDays(schedules: List<Workingday>)
+    suspend fun insertWorkingDays(schedules: List<WorkingDayCb>)
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertSaturdays(schedules: List<Saturday>)
+    suspend fun insertSaturdays(schedules: List<SaturdayCb>)
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertSundays(schedules: List<Sunday>)
+    suspend fun insertSundays(schedules: List<SundayCb>)
 
     @Update(onConflict = REPLACE)
     fun updateLine(busLine: BusLine)

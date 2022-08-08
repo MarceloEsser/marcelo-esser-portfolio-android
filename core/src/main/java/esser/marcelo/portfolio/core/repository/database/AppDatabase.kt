@@ -3,12 +3,11 @@ package esser.marcelo.portfolio.core.repository.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import esser.marcelo.busoclock.model.schedules.Saturday
-import esser.marcelo.busoclock.model.schedules.Sunday
-import esser.marcelo.busoclock.model.schedules.Workingday
+import esser.marcelo.portfolio.core.model.schedules.cb.SaturdayCb
+import esser.marcelo.portfolio.core.model.schedules.cb.SundayCb
+import esser.marcelo.portfolio.core.model.schedules.cb.WorkingDayCb
 import esser.marcelo.portfolio.core.helper.Converters
 import esser.marcelo.portfolio.core.model.BusLine
-import esser.marcelo.portfolio.core.model.LineSchedules
 
 /**
  * @author Marcelo Esser
@@ -19,7 +18,7 @@ import esser.marcelo.portfolio.core.model.LineSchedules
  */
 
 @Database(
-    entities = [BusLine::class, Workingday::class, Saturday::class, Sunday::class],
+    entities = [BusLine::class, WorkingDayCb::class, SaturdayCb::class, SundayCb::class],
     version = 1,
     exportSchema = false,
 )

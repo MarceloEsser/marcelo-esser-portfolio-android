@@ -52,7 +52,7 @@ class SogalServiceImpl(
 
                 lineSchedulesResult.let { line ->
                     line.workingDays?.let { workingDays ->
-                        workingDays.forEach { element -> element.workindayKey = line.line?.id }
+                        workingDays.forEach { element -> element.workingDayKey = line.line?.id }
                         dao.insertWorkingDays(workingDays)
                     }
                     line.saturdays?.let { saturdays ->

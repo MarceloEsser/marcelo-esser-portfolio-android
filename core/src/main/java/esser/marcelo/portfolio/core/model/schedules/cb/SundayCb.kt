@@ -1,9 +1,9 @@
-package esser.marcelo.busoclock.model.schedules
+package esser.marcelo.portfolio.core.model.schedules.cb
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import esser.marcelo.busoclock.model.schedules.BaseSchedule
 
 /**
  * @author Marcelo Esser
@@ -14,10 +14,11 @@ import com.google.gson.annotations.SerializedName
  */
 
 @Entity
-data class Sunday(
+data class SundayCb(
     @PrimaryKey(autoGenerate = true)
-    var sundayId: Long? = null,
+    @ColumnInfo(name = "sunday_cb_id")
+    var id: Long? = null,
+
     @ColumnInfo(name = "lineId")
     var sundayKey: Long? = null,
-
-    ) : BaseSchedule()
+) : BaseSchedule()

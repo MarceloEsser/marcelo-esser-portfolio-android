@@ -5,6 +5,7 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.work.*
+import androidx.work.ExistingWorkPolicy
 import kotlin.reflect.KClass
 
 
@@ -16,7 +17,7 @@ sealed class BaseService(private val context: Context) {
         data: Data? = null,
         tag: String = worker.java.name
     ) {
-        if (!isNetworkAvailble()) {
+        if (!isNetworkAvailable()) {
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
@@ -33,7 +34,7 @@ sealed class BaseService(private val context: Context) {
         }
     }
 
-    fun isNetworkAvailble(): Boolean {
+    private fun isNetworkAvailable(): Boolean {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val nw = connectivityManager.activeNetwork ?: return false
