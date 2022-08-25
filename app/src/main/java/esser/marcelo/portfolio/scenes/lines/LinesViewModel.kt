@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.repository.database.AppDao
-import esser.marcelo.portfolio.core.repository.service.ISogalService
+import esser.marcelo.core.sogal.service.ISogalService
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.coroutines.CoroutineContext

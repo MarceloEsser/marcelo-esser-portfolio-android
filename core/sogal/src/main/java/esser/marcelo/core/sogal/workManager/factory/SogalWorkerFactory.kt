@@ -1,11 +1,11 @@
-package esser.marcelo.portfolio.core.workManager.factory
+package esser.marcelo.core.sogal.workManager.factory
 
 import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import esser.marcelo.portfolio.core.repository.service.ISogalService
-import esser.marcelo.portfolio.core.workManager.SchedulesWorker
+import esser.marcelo.core.sogal.service.ISogalService
+import esser.marcelo.core.sogal.workManager.SchedulesWorker
 
 class SogalWorkerFactory(private val service: ISogalService) : WorkerFactory() {
 

@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.workManager
+package esser.marcelo.core.sogal.workManager
 
 import android.content.Context
 import androidx.work.CoroutineWorker
@@ -6,7 +6,7 @@ import androidx.work.WorkerParameters
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineWay
-import esser.marcelo.portfolio.core.repository.service.ISogalService
+import esser.marcelo.core.sogal.service.ISogalService
 
 class SchedulesWorker(
     private val service: ISogalService,

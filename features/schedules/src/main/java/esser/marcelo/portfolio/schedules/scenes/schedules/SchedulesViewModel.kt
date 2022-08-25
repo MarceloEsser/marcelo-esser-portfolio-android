@@ -7,9 +7,8 @@ import androidx.lifecycle.viewModelScope
 import esser.marcelo.busoclock.model.schedules.BaseSchedule
 import esser.marcelo.portfolio.core.Status
 import esser.marcelo.portfolio.core.model.BusLine
-import esser.marcelo.portfolio.core.model.Schedule
 import esser.marcelo.portfolio.core.model.LineSchedules
-import esser.marcelo.portfolio.core.repository.service.ISogalService
+import esser.marcelo.core.sogal.service.ISogalService
 import esser.marcelo.portfolio.schedules.R
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ import kotlinx.coroutines.launch
  */
 
 class SchedulesViewModel(
-    private val service: ISogalService,
+    private val service: esser.marcelo.core.sogal.service.ISogalService,
     private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 

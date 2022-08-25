@@ -9,7 +9,7 @@ import androidx.work.ExistingWorkPolicy
 import kotlin.reflect.KClass
 
 
-sealed class BaseService(private val context: Context) {
+open class BaseService(private val context: Context) {
     private val instance = WorkManager.getInstance(context)
 
     fun <WorkerType : ListenableWorker> canEnqueueOneTimeWorker(

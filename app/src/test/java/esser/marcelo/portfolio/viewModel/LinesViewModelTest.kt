@@ -6,9 +6,9 @@ import esser.marcelo.portfolio.BaseUnitTest
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineWay
 import esser.marcelo.portfolio.core.repository.database.AppDao
-import esser.marcelo.portfolio.core.repository.service.ISogalAPI
-import esser.marcelo.portfolio.core.repository.service.SogalServiceImpl
-import esser.marcelo.portfolio.core.repository.service.ISogalService
+import esser.marcelo.core.sogal.service.ISogalAPI
+import esser.marcelo.core.sogal.service.SogalServiceImpl
+import esser.marcelo.core.sogal.service.ISogalService
 import esser.marcelo.portfolio.core.wrapper.Resource
 import esser.marcelo.portfolio.scenes.lines.LinesViewModel
 import io.mockk.MockKAnnotations

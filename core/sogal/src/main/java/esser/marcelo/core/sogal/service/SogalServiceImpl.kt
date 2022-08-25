@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.repository.service
+package esser.marcelo.core.sogal.service
 
 import android.content.Context
 import androidx.work.Data
@@ -6,7 +6,7 @@ import esser.marcelo.portfolio.core.DataBoundResource
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.repository.database.AppDao
-import esser.marcelo.portfolio.core.workManager.SchedulesWorker
+import esser.marcelo.portfolio.core.repository.service.BaseService
 import esser.marcelo.portfolio.core.wrapper.Resource
 import kotlinx.coroutines.flow.Flow
 
@@ -42,8 +42,8 @@ class SogalServiceImpl(
                 val data = Data.Builder()
                 data.putAll(busLine.toMap())
                 val tag =
-                    "${SchedulesWorker::class.java.name}_${busLine.code}_${busLine.way}"
-                canEnqueueOneTimeWorker(SchedulesWorker::class, data.build(), tag = tag)
+                    "${esser.marcelo.core.sogal.workManager.SchedulesWorker::class.java.name}_${busLine.code}_${busLine.way}"
+                canEnqueueOneTimeWorker(esser.marcelo.core.sogal.workManager.SchedulesWorker::class, data.build(), tag = tag)
 
                 _mApi.postSogalSchedules(busLine.way ?: "", busLine.code)
             },

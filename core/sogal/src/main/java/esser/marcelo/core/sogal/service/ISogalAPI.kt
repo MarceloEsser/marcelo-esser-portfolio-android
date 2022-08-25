@@ -1,4 +1,4 @@
-package esser.marcelo.portfolio.core.repository.service
+package esser.marcelo.core.sogal.service
 
 import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineSchedules

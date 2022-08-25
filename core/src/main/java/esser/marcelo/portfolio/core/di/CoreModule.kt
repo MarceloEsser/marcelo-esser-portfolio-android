@@ -2,13 +2,13 @@ package esser.marcelo.portfolio.core.di
 
 import androidx.room.Room
 import androidx.work.WorkerFactory
-import esser.marcelo.portfolio.core.repository.service.ISogalAPI
+import esser.marcelo.core.sogal.service.ISogalAPI
 import esser.marcelo.portfolio.core.NetworkHandler
 import esser.marcelo.portfolio.core.callAdapter.CallAdapterFactory
 import esser.marcelo.portfolio.core.repository.database.AppDatabase
-import esser.marcelo.portfolio.core.repository.service.SogalServiceImpl
-import esser.marcelo.portfolio.core.repository.service.ISogalService
-import esser.marcelo.portfolio.core.workManager.factory.SogalWorkerFactory
+import esser.marcelo.core.sogal.service.SogalServiceImpl
+import esser.marcelo.core.sogal.service.ISogalService
+import esser.marcelo.core.sogal.workManager.factory.SogalWorkerFactory
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import org.koin.dsl.module
@@ -29,12 +29,18 @@ val coreModule = module {
 
     single { get<AppDatabase>().getAppDao() }
 
-    single { get<Retrofit>().create(ISogalAPI::class.java) }
-    single<ISogalService> { SogalServiceImpl(get(), get(), get()) }
+    single { get<Retrofit>().create(esser.marcelo.core.sogal.service.ISogalAPI::class.java) }
+    single<esser.marcelo.core.sogal.service.ISogalService> {
+        esser.marcelo.core.sogal.service.SogalServiceImpl(
+            get(),
+            get(),
+            get()
+        )
+    }
 }
 
 val workManager = module {
-    factory<WorkerFactory> { SogalWorkerFactory(get()) }
+    factory<WorkerFactory> { esser.marcelo.core.sogal.workManager.factory.SogalWorkerFactory(get()) }
 }
 
 private fun retrofit() = Retrofit.Builder()

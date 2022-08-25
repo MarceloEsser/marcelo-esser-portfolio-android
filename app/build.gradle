@@ -62,6 +62,8 @@ dependencies {
     testImplementation junit
 
     implementation(project(':core'))
+    implementation(project(':core:sogal'))
+    implementation(project(':core:vicasa'))
     implementation(project(':commons'))
     implementation(project(':features:schedules'))
 

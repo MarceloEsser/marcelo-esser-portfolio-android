@@ -8,9 +8,9 @@ import esser.marcelo.portfolio.core.model.BusLine
 import esser.marcelo.portfolio.core.model.LineSchedules
 import esser.marcelo.portfolio.core.model.LineWay
 import esser.marcelo.portfolio.core.repository.database.AppDao
-import esser.marcelo.portfolio.core.repository.service.ISogalAPI
-import esser.marcelo.portfolio.core.repository.service.ISogalService
-import esser.marcelo.portfolio.core.repository.service.SogalServiceImpl
+import esser.marcelo.core.sogal.service.ISogalAPI
+import esser.marcelo.core.sogal.service.ISogalService
+import esser.marcelo.core.sogal.service.SogalServiceImpl
 import esser.marcelo.portfolio.core.wrapper.Resource
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -35,14 +35,15 @@ class DataBoundResourceTest : BaseUnitTest() {
     lateinit var appDao: AppDao
 
     @RelaxedMockK
-    lateinit var sogalApi: ISogalAPI
+    lateinit var sogalApi: esser.marcelo.core.sogal.service.ISogalAPI
 
-    lateinit var sogalServiceDelegate: ISogalService
+    lateinit var sogalServiceDelegate: esser.marcelo.core.sogal.service.ISogalService
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        sogalServiceDelegate = SogalServiceImpl(dao = appDao, _mApi = sogalApi)
+        sogalServiceDelegate =
+            esser.marcelo.core.sogal.service.SogalServiceImpl(dao = appDao, _mApi = sogalApi)
     }
 
     @Test
